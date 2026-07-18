@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-
 import Navbar from "../components/navbar";
-import "../styles/login.css";
-
 import signupImage from "../assets/images/signup.png";
 
 import { FcGoogle } from "react-icons/fc";

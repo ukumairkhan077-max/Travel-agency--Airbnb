@@ -1,5 +1,3 @@
-import "../styles/searchbar.css";
-
 import { IoSearch } from "react-icons/io5";
 
 function SearchBar() {
