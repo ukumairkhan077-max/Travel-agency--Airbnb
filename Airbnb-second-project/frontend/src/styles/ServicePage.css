@@ -1,0 +1,30 @@
+.service-page-wrapper {
+    width: 95%;
+    margin: 30px auto 60px;
+}
+
+.service-page-header {
+    margin-bottom: 30px;
+}
+
+.service-page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.service-page-header p {
+    font-size: 16px;
+    color: #717171;
+}
+
+@media (max-width: 768px) {
+    .service-page-header h1 {
+        font-size: 24px;
+    }
+
+    .service-page-header p {
+        font-size: 14px;
+    }
+}

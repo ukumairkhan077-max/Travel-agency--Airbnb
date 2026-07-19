@@ -1,0 +1,391 @@
+/* ============ Two-column layout ============ */
+.service-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto 80px;
+}
+
+.service-detail-left {
+    flex: 0 0 45%;
+    position: sticky;
+    top: 90px;
+    align-self: flex-start;
+}
+
+.service-detail-right {
+    flex: 1;
+    min-width: 0;
+}
+
+.service-not-found {
+    width: 90%;
+    max-width: 1200px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+.service-not-found a {
+    color: #ff385c;
+    font-weight: 600;
+}
+
+/* ============ Hero Service (left column) ============ */
+.hero-service-image-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.hero-service-image {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-service-actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 10px;
+}
+
+.hero-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, .9);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.hero-action-btn:hover {
+    background: #fff;
+}
+
+.hero-action-btn .favorited {
+    color: #ff385c;
+}
+
+.hero-service-host {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.hero-service-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .08);
+}
+
+.hero-service-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.hero-service-hosted-by {
+    font-size: 14px;
+    color: #717171;
+}
+
+.hero-service-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+}
+
+.hero-service-star {
+    color: #222;
+}
+
+.hero-service-review-count {
+    font-weight: 400;
+    color: #717171;
+}
+
+.hero-service-description {
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #222;
+}
+
+.hero-service-host-info {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.hero-service-host-info h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.hero-service-host-info p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #484848;
+    margin-bottom: 8px;
+}
+
+.hero-service-host-title {
+    font-weight: 600;
+    color: #222 !important;
+}
+
+.hero-service-host-edu {
+    color: #717171 !important;
+}
+
+.hero-service-cancellation {
+    display: flex;
+    gap: 14px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.hero-service-shield {
+    font-size: 22px;
+    color: #222;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.hero-service-cancellation h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #222;
+}
+
+.hero-service-cancellation p {
+    font-size: 14px;
+    color: #717171;
+}
+
+.hero-service-booking {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.hero-service-price-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+}
+
+.hero-service-price-unit {
+    font-size: 14px;
+    color: #717171;
+    margin-left: 4px;
+}
+
+.hero-service-reserve-btn {
+    background: #ff385c;
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.hero-service-reserve-btn:hover {
+    background: #e31c5f;
+}
+
+/* ============ Service Sidebar (right column heading) ============ */
+.service-sidebar-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+/* ============ Service List (horizontal related cards) ============ */
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.service-list-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.service-list-card {
+    display: flex;
+    gap: 16px;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+    transition: transform .25s ease, box-shadow .25s ease;
+    cursor: pointer;
+}
+
+.service-list-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .14);
+}
+
+.service-list-image-wrap {
+    flex: 0 0 140px;
+    height: 110px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.service-list-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .3s ease;
+}
+
+.service-list-card:hover .service-list-image {
+    transform: scale(1.06);
+}
+
+.service-list-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.service-list-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 6px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.service-list-description {
+    font-size: 13px;
+    color: #717171;
+    margin-bottom: 10px;
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.service-list-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.service-list-duration {
+    color: #717171;
+}
+
+.service-list-price {
+    font-weight: 700;
+    color: #222;
+}
+
+/* ============ Tablet ============ */
+@media (max-width: 1024px) {
+    .service-detail {
+        gap: 28px;
+    }
+
+    .service-detail-left {
+        flex: 0 0 42%;
+    }
+
+    .hero-service-image {
+        height: 340px;
+    }
+}
+
+/* ============ Mobile: stack vertically, hero first ============ */
+@media (max-width: 768px) {
+    .service-detail {
+        flex-direction: column;
+        width: 92%;
+        gap: 32px;
+        margin: 24px auto 60px;
+    }
+
+    .service-detail-left {
+        position: static;
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .service-detail-right {
+        width: 100%;
+    }
+
+    .hero-service-image {
+        height: 260px;
+    }
+
+    .hero-service-booking {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .hero-service-reserve-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-list-card {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    .service-list-image-wrap {
+        flex: 0 0 90px;
+        height: 80px;
+    }
+
+    .service-list-info h4 {
+        font-size: 14px;
+    }
+
+    .hero-service-title {
+        font-size: 20px;
+    }
+}
