@@ -1,0 +1,95 @@
+/* Dropdown Drawer (triggered by hamburger icon) */
+
+.right-side{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.nav-drawer{
+    position: absolute;
+    top: 56px;
+    right: 0;
+
+    width: 300px;
+
+    background: white;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 24px rgba(0,0,0,.18);
+
+    padding: 10px 0;
+
+    z-index: 50;
+
+    animation: drawerFade .18s ease;
+}
+
+@keyframes drawerFade{
+    from{
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.drawer-item{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 20px;
+
+    color: #222222;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: background .2s ease;
+}
+
+.drawer-item:hover{
+    background: #f7f7f7;
+}
+
+.drawer-icon{
+    font-size: 20px;
+    color: #222222;
+    flex-shrink: 0;
+}
+
+.drawer-divider{
+    height: 1px;
+    background: #ebebeb;
+    margin: 6px 0;
+}
+
+.drawer-host{
+    align-items: flex-start;
+}
+
+.drawer-host .drawer-icon{
+    margin-top: 2px;
+    color: #FF385C;
+}
+
+.drawer-host-text strong{
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+}
+
+.drawer-host-text p{
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #717171;
+    line-height: 1.4;
+}
