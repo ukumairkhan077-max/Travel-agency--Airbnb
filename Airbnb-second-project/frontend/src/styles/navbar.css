@@ -1,0 +1,257 @@
+/* ============================================================
+   Base Navbar
+   ============================================================ */
+
+.navbar{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    width: 100%;
+    background: #fff;
+    border-bottom: 1px solid #ebebeb;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.navbar-inner{
+    max-width: 1760px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 14px 40px;
+}
+
+/* ---------- Logo ---------- */
+
+.logo{
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.logo img{
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+}
+
+/* ---------- Center Menu Tabs (Homes / Experiences / Services) ---------- */
+
+.menu{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    flex: 1;
+    justify-content: center;
+}
+
+.menu-item{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 16px;
+    border-radius: 24px;
+
+    color: #222222;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: background .2s ease;
+}
+
+.menu-item:hover{
+    background: #f7f7f7;
+}
+
+.menu-item.active{
+    color: #222222;
+    background: #f0f0f0;
+}
+
+.menu-icon{
+    font-size: 18px;
+}
+
+/* ---------- Compact search pill embedded in navbar ---------- */
+
+.navbar-compact-search{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    min-width: 0;
+}
+
+/* ---------- Right Side ---------- */
+
+.host-btn{
+    background: none;
+    border: none;
+
+    padding: 10px 12px;
+    border-radius: 22px;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: background .2s ease;
+}
+
+.host-btn:hover{
+    background: #f7f7f7;
+}
+
+.icon-circle{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+    border: 1px solid transparent;
+
+    font-size: 18px;
+    color: #222222;
+
+    cursor: pointer;
+
+    transition: background .2s ease, box-shadow .2s ease;
+}
+
+.icon-circle:hover{
+    background: #f7f7f7;
+}
+
+.menu-toggle{
+    border: 1px solid #dddddd;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px){
+    .navbar-inner{
+        padding: 12px 20px;
+    }
+
+    .menu-item span{
+        display: none;
+    }
+
+    .host-btn{
+        display: none;
+    }
+}
+
+/* Dropdown Drawer (triggered by hamburger icon) */
+
+.right-side{
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.nav-drawer{
+    position: absolute;
+    top: 56px;
+    right: 0;
+
+    width: 300px;
+
+    background: white;
+    border-radius: 14px;
+
+    box-shadow: 0 4px 24px rgba(0,0,0,.18);
+
+    padding: 10px 0;
+
+    z-index: 50;
+
+    animation: drawerFade .18s ease;
+}
+
+@keyframes drawerFade{
+    from{
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.drawer-item{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 20px;
+
+    color: #222222;
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    cursor: pointer;
+
+    transition: background .2s ease;
+}
+
+.drawer-item:hover{
+    background: #f7f7f7;
+}
+
+.drawer-icon{
+    font-size: 20px;
+    color: #222222;
+    flex-shrink: 0;
+}
+
+.drawer-divider{
+    height: 1px;
+    background: #ebebeb;
+    margin: 6px 0;
+}
+
+.drawer-host{
+    align-items: flex-start;
+}
+
+.drawer-host .drawer-icon{
+    margin-top: 2px;
+    color: #FF385C;
+}
+
+.drawer-host-text strong{
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+}
+
+.drawer-host-text p{
+    margin-top: 4px;
+    font-size: 13px;
+    font-weight: 400;
+    color: #717171;
+    line-height: 1.4;
+}

@@ -1,0 +1,681 @@
+/* ============ Two-column layout ============ */
+.service-detail {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+    width: 90%;
+    max-width: 1200px;
+    margin: 40px auto 80px;
+}
+
+.service-detail-left {
+    flex: 0 0 45%;
+    position: sticky;
+    top: 90px;
+    align-self: flex-start;
+}
+
+.service-detail-right {
+    flex: 1;
+    min-width: 0;
+}
+
+.service-not-found {
+    width: 90%;
+    max-width: 1200px;
+    margin: 80px auto;
+    text-align: center;
+}
+
+.service-not-found a {
+    color: #ff385c;
+    font-weight: 600;
+}
+
+/* ============ Hero Service (left column) ============ */
+.hero-service-image-wrap {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.hero-service-image {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    display: block;
+}
+
+.hero-service-actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 10px;
+}
+
+.hero-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255, 255, 255, .9);
+    border: none;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.hero-action-btn:hover {
+    background: #fff;
+}
+
+.hero-action-btn .favorited {
+    color: #ff385c;
+}
+
+.hero-service-host {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.hero-service-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .08);
+}
+
+.hero-service-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 4px;
+}
+
+.hero-service-hosted-by {
+    font-size: 14px;
+    color: #717171;
+}
+
+.hero-service-rating {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #222;
+}
+
+.hero-service-star {
+    color: #222;
+}
+
+.hero-service-review-count {
+    font-weight: 400;
+    color: #717171;
+}
+
+.hero-service-description {
+    margin-top: 16px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: #222;
+}
+
+.hero-service-host-info {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.hero-service-host-info h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.hero-service-host-info p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #484848;
+    margin-bottom: 8px;
+}
+
+.hero-service-host-title {
+    font-weight: 600;
+    color: #222 !important;
+}
+
+.hero-service-host-edu {
+    color: #717171 !important;
+}
+
+.hero-service-cancellation {
+    display: flex;
+    gap: 14px;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.hero-service-shield {
+    font-size: 22px;
+    color: #222;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.hero-service-cancellation h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #222;
+}
+
+.hero-service-cancellation p {
+    font-size: 14px;
+    color: #717171;
+}
+
+.hero-service-booking {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid #e0e0e0;
+}
+
+.hero-service-price-amount {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222;
+}
+
+.hero-service-price-unit {
+    font-size: 14px;
+    color: #717171;
+    margin-left: 4px;
+}
+
+.hero-service-reserve-btn {
+    background: #ff385c;
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.hero-service-reserve-btn:hover {
+    background: #e31c5f;
+}
+
+/* ============ Service Sidebar (right column heading) ============ */
+.service-sidebar-heading {
+    font-size: 20px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 20px;
+}
+
+/* ============ Service List (horizontal related cards) ============ */
+.service-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.service-list-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.service-list-card {
+    display: flex;
+    gap: 16px;
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
+    transition: transform .25s ease, box-shadow .25s ease;
+    cursor: pointer;
+}
+
+.service-list-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .14);
+}
+
+.service-list-image-wrap {
+    flex: 0 0 140px;
+    height: 110px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.service-list-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .3s ease;
+}
+
+.service-list-card:hover .service-list-image {
+    transform: scale(1.06);
+}
+
+.service-list-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.service-list-info h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 6px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.service-list-description {
+    font-size: 13px;
+    color: #717171;
+    margin-bottom: 10px;
+
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.service-list-bottom-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+}
+
+.service-list-duration {
+    color: #717171;
+}
+
+.service-list-price {
+    font-weight: 700;
+    color: #222;
+}
+
+/* ============ Tablet ============ */
+@media (max-width: 1024px) {
+    .service-detail {
+        gap: 28px;
+    }
+
+    .service-detail-left {
+        flex: 0 0 42%;
+    }
+
+    .hero-service-image {
+        height: 340px;
+    }
+}
+
+/* ============ Mobile: stack vertically, hero first ============ */
+@media (max-width: 768px) {
+    .service-detail {
+        flex-direction: column;
+        width: 92%;
+        gap: 32px;
+        margin: 24px auto 60px;
+    }
+
+    .service-detail-left {
+        position: static;
+        flex: 1 1 auto;
+        width: 100%;
+    }
+
+    .service-detail-right {
+        width: 100%;
+    }
+
+    .hero-service-image {
+        height: 260px;
+    }
+
+    .hero-service-booking {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .hero-service-reserve-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-list-card {
+        gap: 10px;
+        padding: 8px;
+    }
+
+    .service-list-image-wrap {
+        flex: 0 0 90px;
+        height: 80px;
+    }
+
+    .service-list-info h4 {
+        font-size: 14px;
+    }
+
+    .hero-service-title {
+        font-size: 20px;
+    }
+}
+
+/* ============================================================
+   SubService Modal (microservice lightbox)
+   ============================================================ */
+
+.subservice-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    background: rgba(0, 0, 0, 0.6);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+    z-index: 200;
+
+    animation: overlayFade .18s ease;
+}
+
+@keyframes overlayFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.subservice-modal {
+    position: relative;
+
+    width: 100%;
+    max-width: 1000px;
+    max-height: 88vh;
+
+    background: #fff;
+    border-radius: 24px;
+    overflow: hidden;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .35);
+
+    animation: modalPop .2s ease;
+}
+
+@keyframes modalPop {
+    from { opacity: 0; transform: scale(.96) translateY(8px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.subservice-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    z-index: 5;
+
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+    background: #fff;
+
+    font-size: 18px;
+    color: #222;
+
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
+
+    transition: background .15s ease;
+}
+
+.subservice-modal-close:hover {
+    background: #f2f2f2;
+}
+
+.subservice-modal-body {
+    display: flex;
+    height: 88vh;
+    max-height: 640px;
+}
+
+/* ---------- Thumbnail rail ---------- */
+
+.subservice-thumb-rail {
+    flex: 0 0 84px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    padding: 16px 12px;
+    overflow-y: auto;
+
+    background: #fafafa;
+    border-right: 1px solid #ebebeb;
+}
+
+.subservice-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+
+    padding: 0;
+    border: 2px solid transparent;
+    border-radius: 12px;
+    overflow: hidden;
+
+    cursor: pointer;
+    flex-shrink: 0;
+
+    transition: border-color .15s ease;
+}
+
+.subservice-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.subservice-thumb-active {
+    border-color: #222222;
+}
+
+/* ---------- Main image ---------- */
+
+.subservice-main-image-wrap {
+    flex: 1 1 55%;
+    min-width: 0;
+    background: #f2f2f2;
+}
+
+.subservice-main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---------- Info panel ---------- */
+
+.subservice-info-panel {
+    flex: 0 0 340px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 16px;
+
+    padding: 40px 36px;
+    text-align: center;
+
+    overflow-y: auto;
+}
+
+.subservice-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.3;
+}
+
+.subservice-meta {
+    font-size: 15px;
+    color: #222;
+    font-weight: 500;
+}
+
+.subservice-meta-dot {
+    margin: 0 6px;
+    color: #717171;
+}
+
+.subservice-description {
+    font-size: 14px;
+    line-height: 1.7;
+    color: #484848;
+}
+
+.subservice-show-dates-btn {
+    align-self: center;
+    margin-top: 8px;
+
+    padding: 14px 32px;
+
+    background: #ff385c;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: background .2s ease;
+}
+
+.subservice-show-dates-btn:hover {
+    background: #e31c5f;
+}
+
+.subservice-date-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.subservice-date-row {
+    display: flex;
+    gap: 10px;
+}
+
+.subservice-date-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+}
+
+.subservice-date-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #222;
+}
+
+.subservice-date-field input {
+    padding: 10px 12px;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+    font-size: 13px;
+    outline: none;
+}
+
+.subservice-date-field input:focus {
+    border-color: #ff385c;
+    box-shadow: 0 0 0 3px rgba(255, 56, 92, .12);
+}
+
+.subservice-reserve-btn {
+    padding: 14px;
+
+    background: #ff385c;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: background .2s ease;
+}
+
+.subservice-reserve-btn:hover {
+    background: #e31c5f;
+}
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 768px) {
+    .subservice-modal-body {
+        flex-direction: column;
+        height: auto;
+        max-height: 82vh;
+        overflow-y: auto;
+    }
+
+    .subservice-thumb-rail {
+        flex-direction: row;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ebebeb;
+    }
+
+    .subservice-thumb {
+        width: 56px;
+        flex-shrink: 0;
+    }
+
+    .subservice-main-image-wrap {
+        height: 220px;
+    }
+
+    .subservice-info-panel {
+        flex: 1;
+        padding: 24px;
+    }
+}

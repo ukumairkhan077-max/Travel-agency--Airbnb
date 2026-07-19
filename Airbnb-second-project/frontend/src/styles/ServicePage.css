@@ -1,0 +1,118 @@
+.service-page-wrapper {
+    width: 95%;
+    margin: 30px auto 60px;
+}
+
+.service-page-header {
+    margin-bottom: 30px;
+}
+
+.service-page-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 8px;
+}
+
+.service-page-header p {
+    font-size: 16px;
+    color: #717171;
+}
+
+@media (max-width: 768px) {
+    .service-page-header h1 {
+        font-size: 24px;
+    }
+
+    .service-page-header p {
+        font-size: 14px;
+    }
+}
+
+/* ============================================================
+   Service Row (horizontal carousel, grouped by city)
+   ============================================================ */
+
+.service-row {
+    margin-bottom: 40px;
+}
+
+.service-row-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.service-row-header .listing-heading {
+    margin-bottom: 0;
+}
+
+.service-row-arrows {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+}
+
+.service-row-arrow-btn {
+    width: 36px;
+    height: 36px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #dddddd;
+    border-radius: 50%;
+    background: #fff;
+
+    font-size: 15px;
+    color: #222;
+
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .08);
+
+    transition: background .2s ease, transform .15s ease;
+}
+
+.service-row-arrow-btn:hover:not(:disabled) {
+    background: #f7f7f7;
+    transform: scale(1.05);
+}
+
+.service-row-arrow-btn:disabled {
+    opacity: .3;
+    cursor: default;
+    box-shadow: none;
+}
+
+.service-row-track {
+    display: flex;
+    gap: 20px;
+
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    padding-bottom: 4px;
+}
+
+.service-row-track::-webkit-scrollbar {
+    display: none;
+}
+
+.service-row-item {
+    flex: 0 0 auto;
+    width: 240px;
+}
+
+@media (max-width: 768px) {
+    .service-row-item {
+        width: 190px;
+    }
+
+    .service-row-arrows {
+        display: none;
+    }
+}
