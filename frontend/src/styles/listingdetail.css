@@ -1,0 +1,238 @@
+/* =========================
+   Listing Detail Page
+========================= */
+
+.listing-detail {
+    width: 90%;
+    max-width: 1300px;
+    margin: 40px auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.listing-detail h1 {
+    font-size: 32px;
+    margin-bottom: 25px;
+}
+
+/* =========================
+   Images
+========================= */
+
+#image-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 12px;
+    margin-bottom: 35px;
+}
+
+#hero-image img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+#other-images {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+}
+
+#other-images img {
+    width: 100%;
+    height: 254px;
+    object-fit: cover;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+#other-images img:hover {
+    transform: scale(1.03);
+    opacity: .9;
+}
+
+/* =========================
+   Description
+========================= */
+
+.listing-detail p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: #444;
+}
+
+/* =========================
+   Detail + Reservation
+========================= */
+
+#under-images {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+    margin-top: 35px;
+}
+
+#detail {
+    flex: 2;
+}
+
+#detail p {
+    margin-bottom: 18px;
+    font-size: 18px;
+}
+
+/* =========================
+   Reservation Card
+========================= */
+
+#reservation {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 25px rgba(0,0,0,.08);
+    position: sticky;
+    top: 100px;
+    background: white;
+}
+
+#reservation h3 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+#reservation label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+#reservation input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    font-size: 15px;
+}
+
+#reservation button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background: #ff385c;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: bold;
+    transition: .3s;
+}
+
+#reservation button:hover {
+    background: #e11d48;
+}
+
+/* =========================
+   Amenities
+========================= */
+
+#offer {
+    margin-top: 60px;
+}
+
+#offer h2 {
+    margin-bottom: 25px;
+}
+
+.amenities {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px;
+}
+
+.amenities p {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 16px;
+    transition: .3s;
+}
+
+.amenities p:hover {
+    background: #efefef;
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media(max-width:1000px){
+
+    #image-container{
+        grid-template-columns:1fr;
+    }
+
+    #hero-image img{
+        height:400px;
+    }
+
+    #other-images img{
+        height:180px;
+    }
+
+    #under-images{
+        flex-direction:column;
+    }
+
+    #reservation{
+        width:100%;
+        position:static;
+    }
+}
+
+@media(max-width:768px){
+
+    .listing-detail{
+        width:95%;
+    }
+
+    .listing-detail h1{
+        font-size:26px;
+    }
+
+    #hero-image img{
+        height:300px;
+    }
+
+    #other-images{
+        grid-template-columns:1fr 1fr;
+    }
+
+    #other-images img{
+        height:140px;
+    }
+
+    .amenities{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:500px){
+
+    #other-images{
+        grid-template-columns:1fr;
+    }
+
+    #other-images img{
+        height:200px;
+    }
+
+    #reservation h3{
+        font-size:22px;
+    }
+}
