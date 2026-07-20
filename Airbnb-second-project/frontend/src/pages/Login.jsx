@@ -3,15 +3,12 @@ import { Link } from "react-router-dom";
 import Navbar from "../components/navbar";
 import signupImage from "../assets/images/signup.png";
 
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook, FaApple } from "react-icons/fa";
-
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // Hook this up to your auth API / backend route here
+
     console.log(isLogin ? "Logging in..." : "Signing up...");
   }
 
@@ -20,131 +17,131 @@ function Login() {
       <Navbar variant="full" />
 
       <div className="auth-page">
-       <div className="auth-card">
 
-        {/* Left Container - Form */}
+        <div className="auth-card">
 
-        <div className="auth-left">
+          {/* Left Card */}
 
-          <div className="auth-form-wrap">
+          <div className="auth-left">
 
-            <h1 className="auth-title">
-              {isLogin ? "Welcome back" : "Create your account"}
-            </h1>
+            <div className="auth-form-wrap">
 
-            <p className="auth-subtitle">
-              {isLogin
-                ? "Log in to continue exploring stays near you."
-                : "Sign up to start booking unique homes and experiences."}
-            </p>
+              <h1 className="auth-title">
+                {isLogin ? "Welcome Back" : "Create Account"}
+              </h1>
 
-            <form className="auth-form" onSubmit={handleSubmit}>
+              <p className="auth-subtitle">
+                {isLogin
+                  ? "Login to continue your journey with Airbnb."
+                  : "Sign up and start exploring unique stays around the world."}
+              </p>
 
-              {!isLogin && (
+              <form className="auth-form" onSubmit={handleSubmit}>
+
+                {!isLogin && (
+                  <div className="input-group">
+                    <label>Full Name</label>
+                    <input
+                      type="text"
+                      placeholder="Enter your full name"
+                      required
+                    />
+                  </div>
+                )}
+
                 <div className="input-group">
-                  <label htmlFor="fullname">Full Name</label>
+                  <label>Email</label>
                   <input
-                    id="fullname"
-                    type="text"
-                    placeholder="Enter your full name"
+                    type="email"
+                    placeholder="Enter your email"
                     required
                   />
                 </div>
-              )}
 
-              <div className="input-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  required
-                />
-              </div>
-
-              <div className="input-group">
-                <label htmlFor="password">Password</label>
-                <input
-                  id="password"
-                  type="password"
-                  placeholder="Enter your password"
-                  required
-                />
-              </div>
-
-              {!isLogin && (
                 <div className="input-group">
-                  <label htmlFor="confirmPassword">Confirm Password</label>
+                  <label>Password</label>
                   <input
-                    id="confirmPassword"
                     type="password"
-                    placeholder="Re-enter your password"
+                    placeholder="Enter your password"
                     required
                   />
                 </div>
-              )}
 
-              {isLogin && (
-                <Link to="/forgot-password" className="forgot-link">
-                  Forgot password?
-                </Link>
-              )}
+                {!isLogin && (
+                  <div className="input-group">
+                    <label>Confirm Password</label>
+                    <input
+                      type="password"
+                      placeholder="Confirm password"
+                      required
+                    />
+                  </div>
+                )}
 
-              <button type="submit" className="auth-submit-btn">
-                {isLogin ? "Log In" : "Sign Up"}
-              </button>
+                {isLogin && (
+                  <Link
+                    to="/forgot-password"
+                    className="forgot-link"
+                  >
+                    Forgot Password?
+                  </Link>
+                )}
 
-            </form>
+                <button
+                  type="submit"
+                  className="auth-submit-btn"
+                >
+                  {isLogin ? "Login" : "Create Account"}
+                </button>
 
-            <div className="auth-divider">
-              <span>or</span>
+              </form>
+
+              <p className="auth-toggle-text">
+
+                {isLogin
+                  ? "Don't have an account?"
+                  : "Already have an account?"}
+
+                <button
+                  type="button"
+                  className="auth-toggle-btn"
+                  onClick={() => setIsLogin(!isLogin)}
+                >
+                  {isLogin ? " Sign Up" : " Login"}
+                </button>
+
+              </p>
+
             </div>
 
-            <div className="social-buttons">
+          </div>
 
-              <button className="social-btn">
-                <FcGoogle className="social-icon" />
-                Continue with Google
-              </button>
+          {/* Right Card */}
 
-              <button className="social-btn">
-                <FaFacebook className="social-icon facebook" />
-                Continue with Facebook
-              </button>
+          <div className="auth-right">
 
-              <button className="social-btn">
-                <FaApple className="social-icon apple" />
-                Continue with Apple
-              </button>
+            <img
+              src={signupImage}
+              alt="Airbnb"
+            />
+
+            <div className="auth-right-overlay">
+
+              <h2>
+                Find Your Perfect Stay
+              </h2>
+
+              <p>
+                Discover unique homes, unforgettable experiences,
+                and amazing places around the world.
+              </p>
 
             </div>
-
-            <p className="auth-toggle-text">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}{" "}
-              <button
-                type="button"
-                className="auth-toggle-btn"
-                onClick={() => setIsLogin((prev) => !prev)}
-              >
-                {isLogin ? "Sign up" : "Log in"}
-              </button>
-            </p>
 
           </div>
 
         </div>
 
-        {/* Right Container - Image */}
-
-        <div className="auth-right">
-          <img src={signupImage} alt="Airbnb host welcoming guests" />
-          <div className="auth-right-overlay">
-            <h2>Find your next stay</h2>
-            <p>Unique homes and experiences, all in one place.</p>
-          </div>
-        </div>
-
-       </div>
       </div>
     </>
   );
