@@ -1,0 +1,247 @@
+/* ============================================================
+   Confirm & Pay — page shell
+   ============================================================ */
+
+.confirm-pay-page {
+    min-height: 100vh;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.confirm-pay-header {
+    border-bottom: 1px solid #ebebeb;
+    padding: 18px 40px;
+}
+
+.confirm-pay-logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ff385c;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+.confirm-pay-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 24px 80px;
+}
+
+.confirm-pay-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: none;
+    border: none;
+    padding: 8px 0;
+    margin-bottom: 20px;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+
+    cursor: pointer;
+    transition: opacity .15s ease;
+}
+
+.confirm-pay-back-btn:hover {
+    opacity: .65;
+}
+
+.confirm-pay-heading {
+    font-size: 30px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 28px;
+}
+
+/* ---------- Two column grid ---------- */
+
+.confirm-pay-grid {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 64px;
+    align-items: start;
+}
+
+.confirm-pay-left {
+    min-width: 0;
+}
+
+.confirm-pay-right {
+    position: sticky;
+    top: 24px;
+}
+
+/* ============================================================
+   Shared section / field primitives
+   (used by RequiredForTrip, PaymentMethod, BillingAddress,
+   CancellationPolicy, GroundRules, CouponSection, ConfirmButton)
+   ============================================================ */
+
+.cp-section {
+    padding: 32px 0;
+    border-bottom: 1px solid #ebebeb;
+}
+
+.cp-section:first-of-type {
+    padding-top: 0;
+}
+
+.cp-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 20px;
+}
+
+.cp-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.cp-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #222222;
+}
+
+.cp-field input {
+    padding: 12px 14px;
+
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+
+    font-size: 14px;
+    color: #222222;
+
+    outline: none;
+
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.cp-field input:focus,
+.cp-input-focus {
+    border-color: #222222 !important;
+    box-shadow: 0 0 0 1px #222222;
+}
+
+.cp-field-row {
+    display: flex;
+    gap: 16px;
+}
+
+/* ============================================================
+   Not found / success states
+   ============================================================ */
+
+.confirm-pay-not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+    gap: 12px;
+    text-align: center;
+}
+
+.confirm-pay-not-found a {
+    color: #ff385c;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+.confirm-pay-success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 100vh;
+    padding: 24px;
+    background: #fafafa;
+}
+
+.confirm-pay-success-card {
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .1);
+
+    padding: 48px 36px;
+}
+
+.confirm-pay-success-card h1 {
+    font-size: 26px;
+    margin-bottom: 16px;
+}
+
+.confirm-pay-success-card p {
+    font-size: 15px;
+    color: #484848;
+    line-height: 1.6;
+    margin-bottom: 28px;
+}
+
+.confirm-pay-success-btn {
+    display: inline-block;
+
+    padding: 14px 28px;
+
+    background: #ff385c;
+    color: #fff;
+
+    border-radius: 10px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: background .2s ease;
+}
+
+.confirm-pay-success-btn:hover {
+    background: #e31c5f;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .confirm-pay-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    .confirm-pay-right {
+        position: static;
+        order: -1;
+    }
+
+    .confirm-pay-header {
+        padding: 16px 20px;
+    }
+
+    .confirm-pay-container {
+        padding: 20px 16px 60px;
+    }
+
+    .confirm-pay-heading {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 500px) {
+    .cp-field-row {
+        flex-direction: column;
+    }
+
+    .payment-tabs {
+        grid-template-columns: 1fr;
+    }
+}
