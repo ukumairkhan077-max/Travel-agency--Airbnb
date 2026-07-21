@@ -1,0 +1,159 @@
+.booking-summary {
+    background: #fff;
+    border: 1px solid #dddddd;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, .08);
+
+    padding: 24px;
+}
+
+.booking-summary-property {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.booking-summary-image {
+    width: 96px;
+    height: 76px;
+    object-fit: cover;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.booking-summary-property-info {
+    min-width: 0;
+}
+
+.booking-summary-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+    line-height: 1.4;
+
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    margin-bottom: 6px;
+}
+
+.booking-summary-rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    font-size: 13px;
+    color: #222222;
+}
+
+.booking-summary-star {
+    font-size: 12px;
+    color: #222222;
+}
+
+.booking-summary-dot {
+    color: #717171;
+    margin: 0 2px;
+}
+
+.booking-summary-reviews {
+    color: #717171;
+    text-decoration: underline;
+}
+
+.booking-summary-divider {
+    height: 1px;
+    background: #ebebeb;
+    margin: 20px 0;
+}
+
+.booking-summary-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding: 10px 0;
+}
+
+.booking-summary-row-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    color: #222222;
+    margin-bottom: 4px;
+}
+
+.booking-summary-row-value {
+    font-size: 14px;
+    color: #484848;
+}
+
+.booking-summary-change-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    flex-shrink: 0;
+
+    font-size: 14px;
+    font-weight: 700;
+    color: #222222;
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+
+.booking-summary-change-btn:hover {
+    color: #ff385c;
+}
+
+.booking-summary-edit-dates {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.booking-summary-date-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.booking-summary-date-field label {
+    font-size: 11px;
+    color: #717171;
+}
+
+.booking-summary-date-field input,
+.booking-summary-guests-input {
+    padding: 8px 10px;
+
+    border: 1px solid #b0b0b0;
+    border-radius: 6px;
+
+    font-size: 13px;
+    outline: none;
+}
+
+.booking-summary-guests-input {
+    width: 80px;
+    margin-top: 4px;
+}
+
+.booking-summary-date-field input:focus,
+.booking-summary-guests-input:focus {
+    border-color: #222222;
+    box-shadow: 0 0 0 1px #222222;
+}
+
+@media (max-width: 900px) {
+    .booking-summary {
+        box-shadow: none;
+        border: none;
+        border-top: 1px solid #ebebeb;
+        border-radius: 0;
+        padding: 24px 0 0;
+    }
+}
