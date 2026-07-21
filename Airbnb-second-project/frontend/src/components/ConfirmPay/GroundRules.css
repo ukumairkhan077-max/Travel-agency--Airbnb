@@ -1,0 +1,28 @@
+.ground-rules-intro {
+    font-size: 14px;
+    color: #717171;
+    line-height: 1.5;
+    margin-bottom: 16px;
+}
+
+.ground-rules-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    list-style: none;
+}
+
+.ground-rules-list li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 14px;
+    color: #222222;
+}
+
+.ground-rules-icon {
+    flex-shrink: 0;
+    font-size: 20px;
+    color: #222222;
+}

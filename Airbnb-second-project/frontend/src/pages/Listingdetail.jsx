@@ -1,17 +1,29 @@
+import { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import dummyListings from "../data/dummylisting";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function Listingdetail() {
     const { id } = useParams();
+    const navigate = useNavigate();
 
     const listing = dummyListings.find(
         (item) => item.id === Number(id)
     );
 
+    const [checkIn, setCheckIn] = useState("");
+    const [checkOut, setCheckOut] = useState("");
+    const [guests, setGuests] = useState(1);
+
     if (!listing) {
         return <h2>Item not found</h2>;
+    }
+
+    function handleCheckAvailability() {
+        navigate(`/confirm-pay/${listing.id}`, {
+            state: { checkIn, checkOut, guests },
+        });
     }
 
     return (
@@ -64,12 +76,33 @@ function Listingdetail() {
                         <h3>${listing.price} / night</h3>
 
                         <label>Check In</label>
-                        <input type="date" />
+                        <input
+                            type="date"
+                            value={checkIn}
+                            onChange={(e) => setCheckIn(e.target.value)}
+                        />
 
                         <label>Check Out</label>
-                        <input type="date" />
+                        <input
+                            type="date"
+                            value={checkOut}
+                            onChange={(e) => setCheckOut(e.target.value)}
+                        />
 
-                        <button>Check Availability</button>
+                        <label>Guests</label>
+                        <input
+                            type="number"
+                            min={1}
+                            max={16}
+                            value={guests}
+                            onChange={(e) =>
+                                setGuests(Math.max(1, Number(e.target.value) || 1))
+                            }
+                        />
+
+                        <button onClick={handleCheckAvailability}>
+                            Check Availability
+                        </button>
 
                     </div>
 

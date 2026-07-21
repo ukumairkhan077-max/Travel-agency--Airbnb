@@ -1,0 +1,26 @@
+.login-reminder {
+    display: flex;
+    align-items: center;
+
+    padding: 16px 18px;
+    margin-bottom: 32px;
+
+    background: #f7f7f7;
+    border-radius: 12px;
+}
+
+.login-reminder p {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #222222;
+}
+
+.login-reminder-link {
+    font-weight: 700;
+    color: #222222;
+    text-decoration: underline;
+}
+
+.login-reminder-link:hover {
+    color: #ff385c;
+}

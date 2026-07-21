@@ -1,0 +1,82 @@
+.payment-tabs {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.payment-tab {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 14px 16px;
+
+    background: #fff;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+
+    cursor: pointer;
+    text-align: left;
+
+    transition: border-color .15s ease, box-shadow .15s ease, transform .1s ease;
+}
+
+.payment-tab:hover {
+    border-color: #222222;
+}
+
+.payment-tab-active {
+    border: 1px solid #222222;
+    box-shadow: 0 0 0 1px #222222;
+}
+
+.payment-tab-icon {
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.payment-tab-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.card-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    padding-top: 4px;
+    animation: cpFadeIn .15s ease;
+}
+
+@keyframes cpFadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.cp-field-row {
+    display: flex;
+    gap: 16px;
+}
+
+.cp-field-row .cp-field {
+    flex: 1;
+}
+
+.payment-redirect-note {
+    font-size: 14px;
+    color: #717171;
+    line-height: 1.5;
+    padding: 14px 16px;
+
+    background: #f7f7f7;
+    border-radius: 10px;
+}

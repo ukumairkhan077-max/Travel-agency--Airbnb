@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Listingdetail from "./pages/Listingdetail";
 import ServicePage from "./pages/ServicePage";
 import ServiceDetail from "./pages/ServiceDetail";
+import ConfirmPay from "./pages/ConfirmPay/ConfirmPay";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
       <Route path="/services" element={<ServicePage />} />
       <Route path="/services/:id" element={<ServiceDetail />} />
       <Route path="/login" element={<Login />} />
+      <Route path="/confirm-pay/:id" element={<ConfirmPay />} />
 
     </Routes>
   );

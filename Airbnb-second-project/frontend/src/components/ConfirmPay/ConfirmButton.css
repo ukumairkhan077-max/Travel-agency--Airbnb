@@ -1,0 +1,71 @@
+.confirm-button-section {
+    border-bottom: none;
+}
+
+.confirm-terms-text {
+    font-size: 12px;
+    line-height: 1.6;
+    color: #717171;
+    margin-bottom: 16px;
+}
+
+.confirm-terms-text a {
+    color: #222222;
+    text-decoration: underline;
+}
+
+.confirm-terms-text a:hover {
+    color: #ff385c;
+}
+
+.confirm-terms-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    cursor: pointer;
+}
+
+.confirm-terms-checkbox input {
+    width: 18px;
+    height: 18px;
+    accent-color: #ff385c;
+    cursor: pointer;
+}
+
+.confirm-terms-checkbox span {
+    font-size: 14px;
+    color: #222222;
+    font-weight: 500;
+}
+
+.confirm-pay-btn {
+    width: 100%;
+    padding: 16px;
+
+    background: #ff385c;
+    color: #fff;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background .2s ease, transform .1s ease, box-shadow .2s ease;
+    box-shadow: 0 2px 10px rgba(255, 56, 92, .3);
+}
+
+.confirm-pay-btn:hover:not(:disabled) {
+    background: #e31c5f;
+    transform: translateY(-1px);
+}
+
+.confirm-pay-btn:disabled {
+    background: #dddddd;
+    color: #a0a0a0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
