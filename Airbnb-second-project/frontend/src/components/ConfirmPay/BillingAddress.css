@@ -1,0 +1,36 @@
+.billing-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.billing-form .cp-field-row {
+    display: flex;
+    gap: 16px;
+}
+
+.billing-form .cp-field-row .cp-field {
+    flex: 1;
+}
+
+.billing-address select {
+    width: 100%;
+    padding: 12px 14px;
+
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+
+    font-size: 14px;
+    color: #222222;
+    background: #fff;
+
+    outline: none;
+    cursor: pointer;
+
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.billing-address select:focus {
+    border-color: #222222;
+    box-shadow: 0 0 0 1px #222222;
+}
