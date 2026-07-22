@@ -1,20 +1,41 @@
 import { useState } from "react";
-import { FaCcPaypal, FaApplePay, FaRegCreditCard } from "react-icons/fa";
-import { SiGooglepay } from "react-icons/si";
+import { FaRegCreditCard, FaMobileAlt } from "react-icons/fa";
 import "./PaymentMethod.css";
 
 const METHODS = [
   { key: "card", label: "Credit/Debit Card", icon: <FaRegCreditCard /> },
-  { key: "paypal", label: "PayPal", icon: <FaCcPaypal /> },
-  { key: "gpay", label: "Google Pay", icon: <SiGooglepay /> },
-  { key: "applepay", label: "Apple Pay", icon: <FaApplePay /> },
+  {
+    key: "easypaisa",
+    label: "Easypaisa",
+    icon: <FaMobileAlt />,
+    accent: "easypaisa",
+  },
+  {
+    key: "jazzcash",
+    label: "JazzCash",
+    icon: <FaMobileAlt />,
+    accent: "jazzcash",
+  },
 ];
 
-function PaymentMethod({ selectedMethod, onSelectMethod, cardDetails, onCardDetailsChange }) {
+function PaymentMethod({
+  selectedMethod,
+  onSelectMethod,
+  cardDetails,
+  onCardDetailsChange,
+  walletNumber,
+  onWalletNumberChange,
+}) {
   const [focusField, setFocusField] = useState(null);
 
   function handleCardChange(field, value) {
     onCardDetailsChange({ ...cardDetails, [field]: value });
+  }
+
+  function handleWalletNumberChange(value) {
+    // keep digits only, cap at 11 (Pakistani mobile numbers, e.g. 03XXXXXXXXX)
+    const digitsOnly = value.replace(/\D/g, "").slice(0, 11);
+    onWalletNumberChange(digitsOnly);
   }
 
   return (
@@ -28,6 +49,7 @@ function PaymentMethod({ selectedMethod, onSelectMethod, cardDetails, onCardDeta
             key={method.key}
             className={
               "payment-tab" +
+              (method.accent ? ` payment-tab-${method.accent}` : "") +
               (selectedMethod === method.key ? " payment-tab-active" : "")
             }
             onClick={() => onSelectMethod(method.key)}
@@ -101,25 +123,54 @@ function PaymentMethod({ selectedMethod, onSelectMethod, cardDetails, onCardDeta
         </div>
       )}
 
-      {selectedMethod === "paypal" && (
-        <p className="payment-redirect-note">
-          You'll be redirected to PayPal to complete your payment securely
-          after clicking "Confirm and pay".
-        </p>
+      {selectedMethod === "easypaisa" && (
+        <div className="wallet-details-form wallet-details-easypaisa">
+          <div className="cp-field">
+            <label>Easypaisa mobile number</label>
+            <input
+              type="tel"
+              inputMode="numeric"
+              placeholder="03XXXXXXXXX"
+              maxLength={11}
+              value={walletNumber}
+              onFocus={() => setFocusField("wallet")}
+              onBlur={() => setFocusField(null)}
+              onChange={(e) => handleWalletNumberChange(e.target.value)}
+              className={focusField === "wallet" ? "cp-input-focus" : ""}
+            />
+          </div>
+
+          <p className="wallet-note">
+            After clicking "Confirm and pay", you'll get a payment request
+            notification on your Easypaisa app. Approve it there to complete
+            your booking.
+          </p>
+        </div>
       )}
 
-      {selectedMethod === "gpay" && (
-        <p className="payment-redirect-note">
-          You'll confirm this payment using Google Pay after clicking
-          "Confirm and pay".
-        </p>
-      )}
+      {selectedMethod === "jazzcash" && (
+        <div className="wallet-details-form wallet-details-jazzcash">
+          <div className="cp-field">
+            <label>JazzCash mobile account number</label>
+            <input
+              type="tel"
+              inputMode="numeric"
+              placeholder="03XXXXXXXXX"
+              maxLength={11}
+              value={walletNumber}
+              onFocus={() => setFocusField("wallet")}
+              onBlur={() => setFocusField(null)}
+              onChange={(e) => handleWalletNumberChange(e.target.value)}
+              className={focusField === "wallet" ? "cp-input-focus" : ""}
+            />
+          </div>
 
-      {selectedMethod === "applepay" && (
-        <p className="payment-redirect-note">
-          You'll confirm this payment using Apple Pay after clicking "Confirm
-          and pay".
-        </p>
+          <p className="wallet-note">
+            After clicking "Confirm and pay", you'll get a payment request
+            notification on your JazzCash app. Approve it there to complete
+            your booking.
+          </p>
+        </div>
       )}
     </section>
   );
