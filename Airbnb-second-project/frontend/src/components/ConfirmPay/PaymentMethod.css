@@ -1,6 +1,6 @@
 .payment-tabs {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
     margin-bottom: 24px;
 }
@@ -36,10 +36,18 @@
 }
 
 .payment-tab-icon {
-    font-size: 20px;
+    font-size: 18px;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-shrink: 0;
+
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+
+    background: #f2f2f2;
+    color: #222222;
 }
 
 .payment-tab-label {
@@ -47,6 +55,30 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+/* ---------- Brand accents ---------- */
+
+.payment-tab-easypaisa .payment-tab-icon {
+    background: #e6f6ea;
+    color: #00a651;
+}
+
+.payment-tab-easypaisa.payment-tab-active {
+    border-color: #00a651;
+    box-shadow: 0 0 0 1px #00a651;
+}
+
+.payment-tab-jazzcash .payment-tab-icon {
+    background: #fdeaea;
+    color: #d2232a;
+}
+
+.payment-tab-jazzcash.payment-tab-active {
+    border-color: #d2232a;
+    box-shadow: 0 0 0 1px #d2232a;
+}
+
+/* ---------- Card form ---------- */
 
 .card-details-form {
     display: flex;
@@ -71,12 +103,40 @@
     flex: 1;
 }
 
-.payment-redirect-note {
-    font-size: 14px;
-    color: #717171;
-    line-height: 1.5;
-    padding: 14px 16px;
+/* ---------- Wallet (Easypaisa / JazzCash) form ---------- */
 
-    background: #f7f7f7;
+.wallet-details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding-top: 4px;
+    animation: cpFadeIn .15s ease;
+}
+
+.wallet-note {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #484848;
+
+    padding: 14px 16px;
     border-radius: 10px;
+    background: #f7f7f7;
+    border-left: 3px solid #dddddd;
+}
+
+.wallet-details-easypaisa .wallet-note {
+    background: #e6f6ea;
+    border-left-color: #00a651;
+}
+
+.wallet-details-jazzcash .wallet-note {
+    background: #fdeaea;
+    border-left-color: #d2232a;
+}
+
+@media (max-width: 500px) {
+    .payment-tabs {
+        grid-template-columns: 1fr;
+    }
 }
