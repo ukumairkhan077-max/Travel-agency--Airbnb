@@ -10,6 +10,8 @@ function PriceDetails({
   cleaningFee,
   serviceFee,
   taxes,
+  servicePrice,
+  serviceTax,
   discount,
   total,
 }) {
@@ -38,6 +40,22 @@ function PriceDetails({
         <span>Taxes</span>
         <span>{formatMoney(taxes)}</span>
       </div>
+
+      {servicePrice > 0 && (
+        <>
+          <div className="price-divider" />
+
+          <div className="price-row">
+            <span>Add-on service</span>
+            <span>{formatMoney(servicePrice)}</span>
+          </div>
+
+          <div className="price-row">
+            <span>Service tax</span>
+            <span>{formatMoney(serviceTax)}</span>
+          </div>
+        </>
+      )}
 
       {discount > 0 && (
         <div className="price-row price-row-discount">
