@@ -1,14 +1,15 @@
 import { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
-import dummyListings from "../data/dummylisting";
+import { useApp } from "../context/AppContext";
 import { useParams, useNavigate } from "react-router-dom";
 
 function Listingdetail() {
     const { id } = useParams();
     const navigate = useNavigate();
+    const { homes } = useApp();
 
-    const listing = dummyListings.find(
+    const listing = homes.find(
         (item) => item.id === Number(id)
     );
 
@@ -20,8 +21,9 @@ function Listingdetail() {
         return <h2>Item not found</h2>;
     }
 
-    function handleCheckAvailability() {
-        navigate(`/confirm-pay/${listing.id}`, {
+    function handleReserve() {
+        // Reserve -> Booking Details -> Question -> (optional service) -> Confirm & Pay -> Thank you
+        navigate(`/booking/${listing.id}/details`, {
             state: { checkIn, checkOut, guests },
         });
     }
@@ -66,7 +68,7 @@ function Listingdetail() {
                     <div id="detail">
                         <p><strong>Price:</strong> ${listing.price}</p>
 
-                        <p><strong>Rating:</strong> ⭐ {listing.rating}</p>
+                        <p><strong>Rating:</strong> ⭐ {listing.rating || "New"}</p>
 
                         <p><strong>Host:</strong> {listing.host}</p>
                     </div>
@@ -100,8 +102,8 @@ function Listingdetail() {
                             }
                         />
 
-                        <button onClick={handleCheckAvailability}>
-                            Check Availability
+                        <button onClick={handleReserve}>
+                            Reserve
                         </button>
 
                     </div>
