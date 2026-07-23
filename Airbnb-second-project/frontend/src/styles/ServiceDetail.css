@@ -679,3 +679,67 @@
         padding: 24px;
     }
 }
+
+/* ============================================================
+   Add Service bar (shown when arriving from the booking flow)
+   ============================================================ */
+
+.add-service-bar {
+    position: sticky;
+    bottom: 0;
+    z-index: 50;
+
+    background: #fff;
+    border-top: 1px solid #ebebeb;
+    box-shadow: 0 -6px 20px rgba(0, 0, 0, .08);
+}
+
+.add-service-bar-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 16px 40px;
+}
+
+.add-service-bar-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222222;
+}
+
+.add-service-bar-price {
+    font-size: 13px;
+    color: #717171;
+}
+
+.add-service-bar-btn {
+    padding: 14px 28px;
+    flex-shrink: 0;
+
+    background: #ff385c;
+    color: #fff;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.add-service-bar-btn:hover {
+    background: #e31c5f;
+}
+
+@media (max-width: 700px) {
+    .add-service-bar-inner {
+        padding: 14px 20px;
+    }
+}
