@@ -1,0 +1,43 @@
+.host-bookings-empty {
+    font-size: 14px;
+    color: #717171;
+}
+
+.host-bookings-table {
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.host-bookings-row {
+    display: grid;
+    grid-template-columns: 1fr 1.4fr 1.6fr 0.7fr 1.2fr 1fr;
+    gap: 12px;
+
+    padding: 14px 20px;
+    border-bottom: 1px solid #ebebeb;
+
+    font-size: 13px;
+    color: #222222;
+}
+
+.host-bookings-row:last-child {
+    border-bottom: none;
+}
+
+.host-bookings-row-header {
+    background: #f7f7f7;
+    font-weight: 700;
+    color: #717171;
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: .3px;
+}
+
+@media (max-width: 900px) {
+    .host-bookings-row {
+        grid-template-columns: 1fr;
+        gap: 4px;
+    }
+}

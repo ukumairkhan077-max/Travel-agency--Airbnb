@@ -2,9 +2,10 @@ import { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 import ServiceRow from "../components/ServiceRow";
-import services from "../data/services";
+import { useApp } from "../context/AppContext";
 
 function ServicePage() {
+  const { services } = useApp();
   const [filters, setFilters] = useState({ location: "", category: "" });
 
   function handleSearch({ location, category }) {

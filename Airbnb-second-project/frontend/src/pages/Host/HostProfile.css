@@ -1,0 +1,80 @@
+.host-profile-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+
+    max-width: 560px;
+    padding: 28px;
+
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 16px;
+}
+
+.host-profile-avatar {
+    width: 64px;
+    height: 64px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #ff385c;
+    color: #fff;
+
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.host-profile-fields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.host-profile-field {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ebebeb;
+
+    font-size: 14px;
+}
+
+.host-profile-field:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.host-profile-label {
+    color: #717171;
+}
+
+.host-profile-value {
+    color: #222222;
+    font-weight: 600;
+    text-align: right;
+}
+
+@media (max-width: 600px) {
+    .host-profile-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .host-profile-field {
+        flex-direction: column;
+        text-align: center;
+        gap: 4px;
+    }
+
+    .host-profile-value {
+        text-align: center;
+    }
+}

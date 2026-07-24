@@ -1,0 +1,155 @@
+.become-host-page {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.become-host-hero {
+    background: linear-gradient(135deg, #ff385c 0%, #e31c5f 100%);
+    padding: 90px 24px;
+    text-align: center;
+    color: #fff;
+}
+
+.become-host-hero-inner {
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.become-host-hero h1 {
+    font-size: 40px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.become-host-hero p {
+    font-size: 17px;
+    opacity: .95;
+    margin-bottom: 32px;
+    line-height: 1.6;
+}
+
+.become-host-cta {
+    display: inline-block;
+
+    padding: 16px 36px;
+
+    background: #fff;
+    color: #ff385c;
+
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.become-host-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .22);
+}
+
+.become-host-benefits {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 80px 24px;
+}
+
+.become-host-benefits h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #222222;
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.become-host-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.become-host-card {
+    padding: 32px 28px;
+
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 16px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .06);
+
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.become-host-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, .1);
+}
+
+.become-host-icon {
+    width: 52px;
+    height: 52px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #ffe4e9;
+    color: #ff385c;
+
+    font-size: 22px;
+    margin-bottom: 18px;
+}
+
+.become-host-card h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 8px;
+}
+
+.become-host-card p {
+    font-size: 14px;
+    color: #717171;
+    line-height: 1.6;
+}
+
+.become-host-bottom-cta {
+    text-align: center;
+    padding: 60px 24px 90px;
+    background: #f7f7f7;
+}
+
+.become-host-bottom-cta h2 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 10px;
+}
+
+.become-host-bottom-cta p {
+    font-size: 15px;
+    color: #717171;
+    margin-bottom: 28px;
+}
+
+@media (max-width: 900px) {
+    .become-host-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .become-host-hero h1 {
+        font-size: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    .become-host-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .become-host-hero {
+        padding: 60px 20px;
+    }
+}

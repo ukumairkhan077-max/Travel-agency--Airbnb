@@ -255,3 +255,13 @@
     color: #717171;
     line-height: 1.4;
 }
+.drawer-item:hover{
+    background: #f7f7f7;
+}
+
+button.drawer-item{
+    background: none;
+    border: none;
+    width: 100%;
+    font-family: inherit;
+}

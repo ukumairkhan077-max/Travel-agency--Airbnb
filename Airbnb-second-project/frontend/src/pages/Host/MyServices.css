@@ -1,0 +1,38 @@
+.my-services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+}
+
+.my-services-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+
+    padding: 40px;
+    background: #fff;
+    border: 1px dashed #dddddd;
+    border-radius: 16px;
+
+    font-size: 14px;
+    color: #717171;
+}
+
+.my-services-empty-btn {
+    padding: 12px 22px;
+
+    background: #ff385c;
+    color: #fff;
+
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: background .2s ease;
+}
+
+.my-services-empty-btn:hover {
+    background: #e31c5f;
+}

@@ -1,0 +1,370 @@
+.booking-flow-page {
+    min-height: 100vh;
+    background: #fff;
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.booking-flow-header {
+    border-bottom: 1px solid #ebebeb;
+    padding: 18px 40px;
+}
+
+.booking-flow-logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: #ff385c;
+    letter-spacing: -0.5px;
+    text-decoration: none;
+}
+
+.booking-flow-container {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 24px 80px;
+}
+
+.booking-flow-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    background: none;
+    border: none;
+    padding: 8px 0;
+    margin-bottom: 20px;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #222222;
+
+    cursor: pointer;
+    transition: opacity .15s ease;
+}
+
+.booking-flow-back-btn:hover {
+    opacity: .65;
+}
+
+.booking-flow-heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 6px;
+}
+
+.booking-flow-subheading {
+    font-size: 15px;
+    color: #717171;
+    margin-bottom: 28px;
+}
+
+.booking-flow-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 48px;
+    align-items: start;
+}
+
+.booking-flow-left {
+    min-width: 0;
+}
+
+.booking-flow-right {
+    position: sticky;
+    top: 24px;
+}
+
+.booking-flow-guests-field {
+    max-width: 200px;
+    margin-top: 16px;
+}
+
+.booking-flow-guests-field input {
+    padding: 12px 14px;
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+    font-size: 14px;
+    outline: none;
+}
+
+.cp-field label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.booking-flow-error {
+    margin-top: 14px;
+    padding: 12px 14px;
+
+    background: #fdeaea;
+    border-left: 3px solid #d93900;
+    border-radius: 8px;
+
+    font-size: 13px;
+    color: #d93900;
+}
+
+.booking-flow-continue-btn {
+    width: 100%;
+    margin-top: 8px;
+    padding: 16px;
+
+    background: #ff385c;
+    color: #fff;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 17px;
+    font-weight: 700;
+
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(255, 56, 92, .3);
+    transition: background .2s ease, transform .1s ease;
+}
+
+.booking-flow-continue-btn:hover {
+    background: #e31c5f;
+    transform: translateY(-1px);
+}
+
+.booking-flow-not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    min-height: 100vh;
+    text-align: center;
+}
+
+.booking-flow-not-found a {
+    color: #ff385c;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+/* ============================================================
+   Booking Question page
+   ============================================================ */
+
+.booking-question-container {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 60px 24px 100px;
+    text-align: center;
+}
+
+.booking-question-illustration {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.booking-question-heading {
+    font-size: 28px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 12px;
+}
+
+.booking-question-subheading {
+    font-size: 15px;
+    color: #717171;
+    margin-bottom: 40px;
+    line-height: 1.6;
+}
+
+.booking-question-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+.booking-question-btn {
+    padding: 16px 40px;
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: background .2s ease, transform .1s ease, border-color .2s ease;
+}
+
+.booking-question-btn-yes {
+    background: #ff385c;
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 10px rgba(255, 56, 92, .3);
+}
+
+.booking-question-btn-yes:hover {
+    background: #e31c5f;
+    transform: translateY(-1px);
+}
+
+.booking-question-btn-no {
+    background: #fff;
+    color: #222222;
+    border: 1px solid #b0b0b0;
+}
+
+.booking-question-btn-no:hover {
+    border-color: #222222;
+}
+
+/* ============================================================
+   Thank You page
+   ============================================================ */
+
+.thank-you-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 24px;
+    background: #fafafa;
+}
+
+.thank-you-card {
+    max-width: 520px;
+    width: 100%;
+
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 20px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, .1);
+
+    padding: 48px 40px;
+    text-align: center;
+}
+
+.thank-you-icon {
+    font-size: 56px;
+    margin-bottom: 16px;
+}
+
+.thank-you-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 8px;
+}
+
+.thank-you-subtitle {
+    font-size: 14px;
+    color: #717171;
+    margin-bottom: 28px;
+}
+
+.thank-you-details {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+
+    padding: 20px;
+    background: #f7f7f7;
+    border-radius: 14px;
+    margin-bottom: 28px;
+}
+
+.thank-you-detail-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+
+    font-size: 14px;
+}
+
+.thank-you-detail-label {
+    color: #717171;
+    flex-shrink: 0;
+}
+
+.thank-you-detail-value {
+    color: #222222;
+    font-weight: 600;
+    text-align: right;
+}
+
+.thank-you-total-row {
+    padding-top: 14px;
+    border-top: 1px solid #dddddd;
+    font-size: 16px;
+}
+
+.thank-you-total-row .thank-you-detail-value {
+    font-size: 18px;
+    color: #ff385c;
+}
+
+.thank-you-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.thank-you-btn {
+    flex: 1;
+    padding: 14px;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+
+    cursor: pointer;
+    transition: background .2s ease, border-color .2s ease;
+}
+
+.thank-you-btn-primary {
+    background: #ff385c;
+    color: #fff;
+    border: none;
+}
+
+.thank-you-btn-primary:hover {
+    background: #e31c5f;
+}
+
+.thank-you-btn-secondary {
+    background: #fff;
+    color: #222222;
+    border: 1px solid #b0b0b0;
+}
+
+.thank-you-btn-secondary:hover {
+    border-color: #222222;
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+
+@media (max-width: 900px) {
+    .booking-flow-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .booking-flow-right {
+        position: static;
+        order: -1;
+    }
+}
+
+@media (max-width: 500px) {
+    .booking-question-actions,
+    .thank-you-actions {
+        flex-direction: column;
+    }
+
+    .thank-you-card {
+        padding: 32px 24px;
+    }
+}

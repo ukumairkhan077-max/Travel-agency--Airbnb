@@ -1,7 +1,8 @@
 import { useState, useMemo } from "react";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
-import dummyListings from "../../data/dummylisting";
+import { useApp } from "../../context/AppContext";
+import { generateBookingId } from "../../utils/idGenerator";
 
 import LoginReminder from "../../components/ConfirmPay/LoginReminder";
 import RequiredForTrip from "../../components/ConfirmPay/RequiredForTrip";
@@ -40,10 +41,12 @@ function ConfirmPay() {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const { homes, addBooking } = useApp();
 
-  const listing = dummyListings.find((item) => item.id === Number(id));
+  const listing = homes.find((item) => item.id === Number(id));
 
   const passedState = location.state || {};
+  const selectedService = passedState.selectedService || null;
 
   const [checkIn, setCheckIn] = useState(
     passedState.checkIn || addDays(null, 7)
@@ -60,6 +63,7 @@ function ConfirmPay() {
     expiry: "",
     cvv: "",
   });
+  const [walletNumber, setWalletNumber] = useState("");
   const [billingAddress, setBillingAddress] = useState({
     country: "Pakistan",
     street: "",
@@ -70,7 +74,6 @@ function ConfirmPay() {
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isConfirmed, setIsConfirmed] = useState(false);
 
   const reviewCount = listing
     ? 20 + ((listing.id * 37) % 260)
@@ -91,6 +94,8 @@ function ConfirmPay() {
         cleaningFee: 0,
         serviceFee: 0,
         taxes: 0,
+        servicePrice: 0,
+        serviceTax: 0,
         discount: 0,
         total: 0,
       };
@@ -102,10 +107,21 @@ function ConfirmPay() {
     const serviceFee = Math.round(subtotal * 0.12);
     const taxes = Math.round((subtotal + cleaningFee + serviceFee) * 0.05);
 
+    // Add-on service (from the "Do you want to add a service?" flow)
+    const servicePrice = selectedService ? selectedService.price : 0;
+    const serviceTax = selectedService ? Math.round(servicePrice * 0.05) : 0;
+
     const discountRate = appliedPromo ? PROMO_CODES[appliedPromo] || 0 : 0;
     const discount = Math.round(subtotal * discountRate);
 
-    const total = subtotal + cleaningFee + serviceFee + taxes - discount;
+    const total =
+      subtotal +
+      cleaningFee +
+      serviceFee +
+      taxes +
+      servicePrice +
+      serviceTax -
+      discount;
 
     return {
       nightlyPrice,
@@ -113,10 +129,12 @@ function ConfirmPay() {
       cleaningFee,
       serviceFee,
       taxes,
+      servicePrice,
+      serviceTax,
       discount,
       total,
     };
-  }, [listing, nights, appliedPromo]);
+  }, [listing, nights, appliedPromo, selectedService]);
 
   function handleApplyPromo(code) {
     if (PROMO_CODES[code]) {
@@ -133,8 +151,23 @@ function ConfirmPay() {
 
     // Simulated payment processing (no backend wired up yet)
     setTimeout(() => {
+      const bookingId = generateBookingId();
+
+      addBooking({
+        id: bookingId,
+        homeId: listing.id,
+        homeTitle: listing.title,
+        serviceTitle: selectedService ? selectedService.title : null,
+        checkIn,
+        checkOut,
+        guests,
+        paymentMethod,
+        total: priceBreakdown.total,
+        createdAt: new Date().toISOString(),
+      });
+
       setIsSubmitting(false);
-      setIsConfirmed(true);
+      navigate(`/thank-you/${bookingId}`);
     }, 1200);
   }
 
@@ -143,24 +176,6 @@ function ConfirmPay() {
       <div className="confirm-pay-not-found">
         <h2>Listing not found</h2>
         <Link to="/listings">Back to listings</Link>
-      </div>
-    );
-  }
-
-  if (isConfirmed) {
-    return (
-      <div className="confirm-pay-success">
-        <div className="confirm-pay-success-card">
-          <h1>🎉 Booking confirmed!</h1>
-          <p>
-            Your stay at <strong>{listing.title}</strong> from{" "}
-            {checkIn} to {checkOut} for {guests} guest
-            {guests > 1 ? "s" : ""} is booked.
-          </p>
-          <Link to="/listings" className="confirm-pay-success-btn">
-            Back to listings
-          </Link>
-        </div>
       </div>
     );
   }
@@ -196,6 +211,8 @@ function ConfirmPay() {
               onSelectMethod={setPaymentMethod}
               cardDetails={cardDetails}
               onCardDetailsChange={setCardDetails}
+              walletNumber={walletNumber}
+              onWalletNumberChange={setWalletNumber}
             />
 
             <BillingAddress
@@ -237,6 +254,7 @@ function ConfirmPay() {
               }}
               onGuestsChange={setGuests}
               priceDetails={priceBreakdown}
+              selectedService={selectedService}
             />
           </div>
         </div>
