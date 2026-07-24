@@ -1,9 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { FaHeart, FaStar } from "react-icons/fa";
 
 function ServiceCard({ service }) {
+  const location = useLocation();
+
   return (
-    <Link to={`/services/${service.id}`} className="service-link">
+    <Link
+      to={`/services/${service.id}`}
+      className="service-link"
+      state={location.state}
+    >
       <div className="service-card">
         <div className="service-image-container">
           <img

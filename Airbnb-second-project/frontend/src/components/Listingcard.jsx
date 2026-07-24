@@ -1,11 +1,13 @@
-import dummyListings from "../data/dummylisting";
 import { FaHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useApp } from "../context/AppContext";
 
 function Listingcard({ filterCity = "" }) {
+  const { homes } = useApp();
+
   const visibleListings = filterCity
-    ? dummyListings.filter((listing) => listing.city === filterCity)
-    : dummyListings;
+    ? homes.filter((listing) => listing.city === filterCity)
+    : homes;
 
   // Group listings by city
   const groupedByCity = visibleListings.reduce((acc, listing) => {
@@ -73,7 +75,7 @@ function Listingcard({ filterCity = "" }) {
                       </span>
 
                       <span className="rating">
-                        ⭐ {listing.rating}
+                        ⭐ {listing.rating || "New"}
                       </span>
                     </div>
                   </div>

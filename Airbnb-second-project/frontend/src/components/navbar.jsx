@@ -7,6 +7,7 @@ import { RiServiceFill } from "react-icons/ri";
 import { IoGlobeOutline, IoHelpCircleOutline } from "react-icons/io5";
 import { HiOutlineMenu } from "react-icons/hi";
 import SearchBar from "./searchbar";
+import { useApp } from "../context/AppContext";
 
 /**
  * Navbar
@@ -24,6 +25,7 @@ function Navbar({ variant = "full", searchType = "stays", onSearch }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
   const navigate = useNavigate();
+  const { currentHost, logoutHost } = useApp();
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -34,6 +36,12 @@ function Navbar({ variant = "full", searchType = "stays", onSearch }) {
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
+
+  function handleLogoutHost() {
+    logoutHost();
+    setMenuOpen(false);
+    navigate("/");
+  }
 
   return (
     <nav className="navbar">
@@ -87,9 +95,11 @@ function Navbar({ variant = "full", searchType = "stays", onSearch }) {
           <button
             className="host-btn"
             type="button"
-            onClick={() => navigate("/login")}
+            onClick={() =>
+              navigate(currentHost ? "/host/dashboard" : "/become-host")
+            }
           >
-            Become a host
+            {currentHost ? "Host Dashboard" : "Become a host"}
           </button>
 
           <div className="icon-circle">
@@ -112,13 +122,23 @@ function Navbar({ variant = "full", searchType = "stays", onSearch }) {
 
               <div className="drawer-divider" />
 
-              <div className="drawer-item drawer-host">
+              <Link
+                to={currentHost ? "/host/dashboard" : "/become-host"}
+                className="drawer-item drawer-host"
+                onClick={() => setMenuOpen(false)}
+              >
                 <FaHandshake className="drawer-icon" />
                 <div className="drawer-host-text">
-                  <strong>Become a host</strong>
-                  <p>It's easy to start hosting and earn extra income.</p>
+                  <strong>
+                    {currentHost ? "Host Dashboard" : "Become a host"}
+                  </strong>
+                  <p>
+                    {currentHost
+                      ? "Manage your homes, services, and bookings."
+                      : "It's easy to start hosting and earn extra income."}
+                  </p>
                 </div>
-              </div>
+              </Link>
 
               <div className="drawer-divider" />
 
@@ -139,13 +159,23 @@ function Navbar({ variant = "full", searchType = "stays", onSearch }) {
 
               <div className="drawer-divider" />
 
-              <Link
-                to="/login"
-                className="drawer-item"
-                onClick={() => setMenuOpen(false)}
-              >
-                <span>Log in or sign up</span>
-              </Link>
+              {currentHost ? (
+                <button
+                  type="button"
+                  className="drawer-item drawer-logout-btn"
+                  onClick={handleLogoutHost}
+                >
+                  <span>Log out ({currentHost.fullName?.split(" ")[0]})</span>
+                </button>
+              ) : (
+                <Link
+                  to="/login"
+                  className="drawer-item"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  <span>Log in or sign up</span>
+                </Link>
+              )}
             </div>
           )}
         </div>
