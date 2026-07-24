@@ -1,0 +1,42 @@
+.host-page-layout {
+    display: flex;
+    align-items: flex-start;
+
+    min-height: calc(100vh - 80px);
+    background: #fafafa;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.host-page-content {
+    flex: 1;
+    min-width: 0;
+
+    padding: 32px 40px 80px;
+}
+
+.host-page-header {
+    margin-bottom: 28px;
+}
+
+.host-page-header h1 {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 6px;
+}
+
+.host-page-header p {
+    font-size: 14px;
+    color: #717171;
+}
+
+@media (max-width: 900px) {
+    .host-page-layout {
+        flex-direction: column;
+    }
+
+    .host-page-content {
+        padding: 24px 20px 60px;
+    }
+}

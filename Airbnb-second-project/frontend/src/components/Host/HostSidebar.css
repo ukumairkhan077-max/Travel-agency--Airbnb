@@ -1,0 +1,124 @@
+.host-sidebar {
+    width: 240px;
+    flex-shrink: 0;
+
+    background: #fff;
+    border-right: 1px solid #ebebeb;
+
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.host-sidebar-profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 8px;
+}
+
+.host-sidebar-avatar {
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #ff385c;
+    color: #fff;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.host-sidebar-name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222222;
+}
+
+.host-sidebar-email {
+    font-size: 12px;
+    color: #717171;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.host-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.host-sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 12px;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 600;
+    color: #484848;
+    text-decoration: none;
+
+    background: none;
+    border: none;
+    text-align: left;
+    width: 100%;
+
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease;
+}
+
+.host-sidebar-link:hover {
+    background: #f7f7f7;
+    color: #222222;
+}
+
+.host-sidebar-link-active {
+    background: #ffe4e9;
+    color: #ff385c;
+}
+
+.host-sidebar-icon {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.host-sidebar-logout {
+    margin-top: 12px;
+    border-top: 1px solid #ebebeb;
+    padding-top: 16px;
+    color: #d93900;
+}
+
+@media (max-width: 900px) {
+    .host-sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ebebeb;
+
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .host-sidebar-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .host-sidebar-link span + span {
+        display: none;
+    }
+}

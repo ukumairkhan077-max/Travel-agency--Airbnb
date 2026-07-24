@@ -1,0 +1,172 @@
+.service-form {
+    max-width: 760px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.service-form-section {
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 16px;
+
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.service-form-section h2 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 18px;
+}
+
+.service-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+    flex: 1;
+}
+
+.service-form-field:last-child {
+    margin-bottom: 0;
+}
+
+.service-form-field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #222222;
+}
+
+.service-form-field input,
+.service-form-field select,
+.service-form-field textarea {
+    padding: 12px 14px;
+
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+
+    font-size: 14px;
+    color: #222222;
+    font-family: inherit;
+
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.service-form-field input:focus,
+.service-form-field select:focus,
+.service-form-field textarea:focus {
+    border-color: #222222;
+    box-shadow: 0 0 0 1px #222222;
+}
+
+.service-form-row {
+    display: flex;
+    gap: 16px;
+}
+
+.service-form-error {
+    font-size: 12px;
+    color: #d93900;
+}
+
+.service-form-subservice {
+    padding: 18px;
+    margin-bottom: 16px;
+
+    background: #fafafa;
+    border: 1px solid #ebebeb;
+    border-radius: 12px;
+}
+
+.service-form-subservice-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.service-form-subservice-header h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222222;
+}
+
+.service-form-remove-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    background: #fdeaea;
+    color: #d93900;
+
+    border: none;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+
+    transition: background .15s ease;
+}
+
+.service-form-remove-btn:hover {
+    background: #fbd5d5;
+}
+
+.service-form-add-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 10px 18px;
+
+    background: #fff;
+    border: 1px solid #222222;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+    color: #222222;
+
+    cursor: pointer;
+    transition: background .15s ease;
+}
+
+.service-form-add-btn:hover {
+    background: #f7f7f7;
+}
+
+.service-form-submit-btn {
+    padding: 16px;
+
+    background: #ff385c;
+    color: #fff;
+
+    border: none;
+    border-radius: 12px;
+
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(255, 56, 92, .3);
+    transition: background .2s ease, transform .1s ease;
+}
+
+.service-form-submit-btn:hover {
+    background: #e31c5f;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 600px) {
+    .service-form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+}
