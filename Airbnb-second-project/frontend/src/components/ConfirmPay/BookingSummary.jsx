@@ -23,6 +23,7 @@ function BookingSummary({
   onDatesChange,
   onGuestsChange,
   priceDetails,
+  selectedService,
 }) {
   const [editingDates, setEditingDates] = useState(false);
   const [editingGuests, setEditingGuests] = useState(false);
@@ -162,6 +163,26 @@ function BookingSummary({
       </div>
 
       <div className="booking-summary-divider" />
+
+      {selectedService && (
+        <>
+          <div className="booking-summary-service">
+            <img
+              src={selectedService.image}
+              alt={selectedService.title}
+              className="booking-summary-service-image"
+            />
+            <div>
+              <p className="booking-summary-service-label">Added service</p>
+              <p className="booking-summary-service-title">
+                {selectedService.title}
+              </p>
+            </div>
+          </div>
+
+          <div className="booking-summary-divider" />
+        </>
+      )}
 
       <PriceDetails {...priceDetails} />
     </aside>
