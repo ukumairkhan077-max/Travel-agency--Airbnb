@@ -1,0 +1,79 @@
+.guest-profile-page {
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    background: #f7f7f7;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.guest-profile-card {
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 20px;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, .1);
+
+    padding: 40px;
+}
+
+.guest-profile-avatar {
+    width: 76px;
+    height: 76px;
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: #ff385c;
+    color: #fff;
+
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.guest-profile-name {
+    font-size: 22px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 4px;
+}
+
+.guest-profile-email {
+    font-size: 14px;
+    color: #717171;
+    margin-bottom: 4px;
+}
+
+.guest-profile-since {
+    font-size: 13px;
+    color: #a0a0a0;
+    margin-bottom: 28px;
+}
+
+.guest-profile-logout-btn {
+    width: 100%;
+    padding: 14px;
+
+    background: #fff;
+    color: #d93900;
+    border: 1px solid #d93900;
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: background .2s ease;
+}
+
+.guest-profile-logout-btn:hover {
+    background: #fdeaea;
+}

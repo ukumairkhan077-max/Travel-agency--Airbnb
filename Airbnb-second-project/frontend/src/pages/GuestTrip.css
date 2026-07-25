@@ -1,0 +1,125 @@
+.guest-trips-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.guest-trips-page h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 24px;
+}
+
+.guest-trips-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+
+    padding: 40px;
+    background: #fff;
+    border: 1px dashed #dddddd;
+    border-radius: 16px;
+
+    font-size: 14px;
+    color: #717171;
+}
+
+.guest-trips-empty-btn {
+    padding: 12px 22px;
+
+    background: #ff385c;
+    color: #fff;
+
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: background .2s ease;
+}
+
+.guest-trips-empty-btn:hover {
+    background: #e31c5f;
+}
+
+.guest-trips-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.guest-trips-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+
+    padding: 20px 24px;
+
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 16px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
+}
+
+.guest-trips-card-body h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 6px;
+}
+
+.guest-trips-dates {
+    font-size: 13px;
+    color: #717171;
+    margin-bottom: 4px;
+}
+
+.guest-trips-service {
+    font-size: 13px;
+    color: #ff385c;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.guest-trips-total {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222222;
+}
+
+.guest-trips-view-btn {
+    flex-shrink: 0;
+    padding: 10px 20px;
+
+    background: #fff;
+    border: 1px solid #222222;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 700;
+    color: #222222;
+    text-decoration: none;
+
+    transition: background .15s ease;
+}
+
+.guest-trips-view-btn:hover {
+    background: #f7f7f7;
+}
+
+@media (max-width: 600px) {
+    .guest-trips-card {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .guest-trips-view-btn {
+        width: 100%;
+        text-align: center;
+    }
+}

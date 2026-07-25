@@ -1,0 +1,147 @@
+.filter-bar {
+    width: 260px;
+    flex-shrink: 0;
+
+    background: #fff;
+    border: 1px solid #ebebeb;
+    border-radius: 16px;
+
+    padding: 20px;
+    height: fit-content;
+
+    position: sticky;
+    top: 90px;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.filter-bar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 18px;
+}
+
+.filter-bar-header h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #222222;
+}
+
+.filter-bar-reset {
+    background: none;
+    border: none;
+
+    font-size: 13px;
+    font-weight: 600;
+    color: #717171;
+    text-decoration: underline;
+
+    cursor: pointer;
+}
+
+.filter-bar-reset:hover {
+    color: #222222;
+}
+
+.filter-bar-section {
+    padding: 16px 0;
+    border-top: 1px solid #ebebeb;
+}
+
+.filter-bar-section:first-of-type {
+    border-top: none;
+    padding-top: 0;
+}
+
+.filter-bar-section h4 {
+    font-size: 13px;
+    font-weight: 700;
+    color: #222222;
+    margin-bottom: 12px;
+}
+
+.filter-bar-price-row {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.filter-bar-price-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.filter-bar-price-field label {
+    font-size: 11px;
+    color: #717171;
+}
+
+.filter-bar-price-field input,
+.filter-bar-guests-input {
+    padding: 8px 10px;
+
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+
+    font-size: 13px;
+    outline: none;
+}
+
+.filter-bar-price-field input:focus,
+.filter-bar-guests-input:focus {
+    border-color: #222222;
+    box-shadow: 0 0 0 1px #222222;
+}
+
+.filter-bar-price-dash {
+    color: #717171;
+    padding-bottom: 8px;
+}
+
+.filter-bar-range {
+    width: 100%;
+    accent-color: #ff385c;
+    cursor: pointer;
+}
+
+.filter-bar-guests-input {
+    width: 100%;
+}
+
+.filter-bar-amenities-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 240px;
+    overflow-y: auto;
+}
+
+.filter-bar-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.filter-bar-checkbox input {
+    width: 16px;
+    height: 16px;
+    accent-color: #ff385c;
+    cursor: pointer;
+}
+
+.filter-bar-checkbox span {
+    font-size: 13px;
+    color: #222222;
+}
+
+@media (max-width: 900px) {
+    .filter-bar {
+        width: 100%;
+        position: static;
+    }
+}
