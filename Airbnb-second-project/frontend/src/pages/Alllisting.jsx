@@ -1,92 +1,54 @@
-import { FaHeart } from "react-icons/fa";
-import { Link } from "react-router-dom";
-import { useApp } from "../context/AppContext";
+import { useState } from "react";
+import Navbar from "../components/navbar";
+import Footer from "../components/footer";
+import Listingcard from "../components/Listingcard";
+import FilterBar from "../components/Filters/FilterBar";
+import { homeAmenities, homePriceBounds } from "../data/searchConfig";
 
-function Listingcard({ filterCity = "" }) {
-  const { homes } = useApp();
+function Listing() {
+  const [filterCity, setFilterCity] = useState("");
+  const [dates, setDates] = useState({ checkIn: "", checkOut: "" });
 
-  const visibleListings = filterCity
-    ? homes.filter((listing) => listing.city === filterCity)
-    : homes;
+  const [filters, setFilters] = useState({
+    minPrice: homePriceBounds.min,
+    maxPrice: homePriceBounds.max,
+    amenities: [],
+    guests: 1,
+  });
 
-  // Group listings by city
-  const groupedByCity = visibleListings.reduce((acc, listing) => {
-    if (!acc[listing.city]) {
-      acc[listing.city] = [];
-    }
-
-    acc[listing.city].push(listing);
-    return acc;
-  }, {});
-
-  if (filterCity && visibleListings.length === 0) {
-    return (
-      <div className="page-wrapper">
-        <div className="listing-container">
-          <p className="no-results-text">
-            No homes found in {filterCity}. Try another destination.
-          </p>
-        </div>
-      </div>
-    );
+  function handleSearch({ location, checkIn, checkOut, guests }) {
+    setFilterCity(location || "");
+    setDates({ checkIn, checkOut });
+    setFilters((prev) => ({
+      ...prev,
+      guests: guests?.adults ? guests.adults + guests.children : prev.guests,
+    }));
   }
 
   return (
-    <div className="page-wrapper">
-      {Object.entries(groupedByCity).map(([city, listings]) => (
-        <div className="listing-container" key={city}>
-          <h2 className="listing-heading">
-            Popular homes in {city}
-          </h2>
+    <>
+      <Navbar variant="compact" searchType="stays" onSearch={handleSearch} />
 
-          <div className="listing-grid">
-            {listings.map((listing) => (
-              <Link
-                to={`/listing/${listing.id}`}
-                className="listing-link"
-                key={listing.id}
-              >
-                <div className="listing-card">
-                  <div className="image-container">
-                    <img
-                      src={listing.images[0]}
-                      alt={listing.title}
-                      className="listing-image"
-                      loading="lazy"
-                    />
+      <div className="listing-page-body">
+        <FilterBar
+          mode="homes"
+          filters={filters}
+          onChange={setFilters}
+          priceBounds={homePriceBounds}
+          amenitiesList={homeAmenities}
+        />
 
-                    <span className="favorite-tag">
-                      Guest Favorite
-                    </span>
-
-                    <FaHeart className="heart-icon" />
-                  </div>
-
-                  <div className="listing-info">
-                    <h3>{listing.title}</h3>
-
-                    <p className="location">
-                      {listing.location}
-                    </p>
-
-                    <div className="bottom-row">
-                      <span className="price">
-                        Rs. {listing.price.toLocaleString()}
-                      </span>
-
-                      <span className="rating">
-                        ⭐ {listing.rating || "New"}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
+        <div className="listing-page-results">
+          <Listingcard
+            filterCity={filterCity}
+            filters={{ ...filters, ...dates }}
+          />
         </div>
-      ))}
-    </div>
+      </div>
+
+      <Footer />
+    </>
   );
 }
 
-export default Listingcard;
+export default Listing;

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import PropertyMap from "../components/Map/PropertyMap";
 import { useApp } from "../context/AppContext";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -16,12 +17,30 @@ function Listingdetail() {
     const [checkIn, setCheckIn] = useState("");
     const [checkOut, setCheckOut] = useState("");
     const [guests, setGuests] = useState(1);
+    const [guestsError, setGuestsError] = useState("");
 
     if (!listing) {
         return <h2>Item not found</h2>;
     }
 
+    const capacity = listing.maxGuests || 4;
+
+    function handleGuestsChange(value) {
+        const nextGuests = Math.max(1, Number(value) || 1);
+        setGuests(nextGuests);
+        setGuestsError(
+            nextGuests > capacity
+                ? `This home fits up to ${capacity} guests.`
+                : ""
+        );
+    }
+
     function handleReserve() {
+        if (guests > capacity) {
+            setGuestsError(`This home fits up to ${capacity} guests.`);
+            return;
+        }
+
         // Reserve -> Booking Details -> Question -> (optional service) -> Confirm & Pay -> Thank you
         navigate(`/booking/${listing.id}/details`, {
             state: { checkIn, checkOut, guests },
@@ -71,6 +90,8 @@ function Listingdetail() {
                         <p><strong>Rating:</strong> ⭐ {listing.rating || "New"}</p>
 
                         <p><strong>Host:</strong> {listing.host}</p>
+
+                        <p><strong>Sleeps:</strong> up to {capacity} guests</p>
                     </div>
 
                     <div id="reservation">
@@ -95,12 +116,15 @@ function Listingdetail() {
                         <input
                             type="number"
                             min={1}
-                            max={16}
+                            max={capacity}
                             value={guests}
-                            onChange={(e) =>
-                                setGuests(Math.max(1, Number(e.target.value) || 1))
-                            }
+                            onChange={(e) => handleGuestsChange(e.target.value)}
                         />
+                        {guestsError && (
+                            <p style={{ color: "#d93900", fontSize: "13px", margin: "-6px 0 10px" }}>
+                                {guestsError}
+                            </p>
+                        )}
 
                         <button onClick={handleReserve}>
                             Reserve
@@ -123,6 +147,13 @@ function Listingdetail() {
                     </div>
 
                 </div>
+
+                <PropertyMap
+                    city={listing.city}
+                    area={listing.location}
+                    id={listing.id}
+                    title={listing.title}
+                />
 
             </div>
             <Footer/>

@@ -2,9 +2,9 @@ import { useState, useMemo } from "react";
 import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { useApp } from "../../context/AppContext";
+import { useAuth } from "../../context/AuthContext";
 import { generateBookingId } from "../../utils/idGenerator";
 
-import LoginReminder from "../../components/ConfirmPay/LoginReminder";
 import RequiredForTrip from "../../components/ConfirmPay/RequiredForTrip";
 import PaymentMethod from "../../components/ConfirmPay/PaymentMethod";
 import BillingAddress from "../../components/ConfirmPay/BillingAddress";
@@ -42,6 +42,7 @@ function ConfirmPay() {
   const location = useLocation();
   const navigate = useNavigate();
   const { homes, addBooking } = useApp();
+  const { guestUser } = useAuth();
 
   const listing = homes.find((item) => item.id === Number(id));
 
@@ -155,6 +156,7 @@ function ConfirmPay() {
 
       addBooking({
         id: bookingId,
+        guestId: guestUser.id,
         homeId: listing.id,
         homeTitle: listing.title,
         serviceTitle: selectedService ? selectedService.title : null,
@@ -204,7 +206,10 @@ function ConfirmPay() {
             <h1 className="confirm-pay-heading">Confirm and pay</h1>
 
             <RequiredForTrip />
-            <LoginReminder />
+
+            <p className="confirm-pay-booking-as">
+              Booking as <strong>{guestUser?.fullName}</strong> ({guestUser?.email})
+            </p>
 
             <PaymentMethod
               selectedMethod={paymentMethod}

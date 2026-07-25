@@ -1,15 +1,70 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Navbar from "../components/navbar";
 import signupImage from "../assets/images/signup.png";
+import { useAuth } from "../context/AuthContext";
+import { isValidEmail } from "../utils/validators";
 
 function Login() {
   const [isLogin, setIsLogin] = useState(true);
+  const [form, setForm] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const [errors, setErrors] = useState({});
+
+  const { login, signup, authError } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function handleChange(field, value) {
+    setForm((prev) => ({ ...prev, [field]: value }));
+    if (errors[field]) setErrors((prev) => ({ ...prev, [field]: "" }));
+  }
+
+  function validate() {
+    const nextErrors = {};
+
+    if (!isLogin && !form.fullName.trim()) {
+      nextErrors.fullName = "Full name is required.";
+    }
+    if (!isValidEmail(form.email)) {
+      nextErrors.email = "Enter a valid email.";
+    }
+    if (form.password.length < 6) {
+      nextErrors.password = "Password must be at least 6 characters.";
+    }
+    if (!isLogin && form.confirmPassword !== form.password) {
+      nextErrors.confirmPassword = "Passwords do not match.";
+    }
+
+    setErrors(nextErrors);
+    return Object.keys(nextErrors).length === 0;
+  }
+
+  function goToDestination() {
+    const from = location.state?.from || "/";
+    const background = location.state?.background || null;
+    navigate(from, { replace: true, state: background });
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!validate()) return;
 
-    console.log(isLogin ? "Logging in..." : "Signing up...");
+    const success = isLogin
+      ? login({ email: form.email, password: form.password })
+      : signup({
+          fullName: form.fullName,
+          email: form.email,
+          password: form.password,
+        });
+
+    if (success) {
+      goToDestination();
+    }
   }
 
   return (
@@ -36,7 +91,7 @@ function Login() {
                   : "Sign up and start exploring unique stays around the world."}
               </p>
 
-              <form className="auth-form" onSubmit={handleSubmit}>
+              <form className="auth-form" onSubmit={handleSubmit} noValidate>
 
                 {!isLogin && (
                   <div className="input-group">
@@ -44,8 +99,12 @@ function Login() {
                     <input
                       type="text"
                       placeholder="Enter your full name"
-                      required
+                      value={form.fullName}
+                      onChange={(e) => handleChange("fullName", e.target.value)}
                     />
+                    {errors.fullName && (
+                      <p className="auth-field-error">{errors.fullName}</p>
+                    )}
                   </div>
                 )}
 
@@ -54,8 +113,12 @@ function Login() {
                   <input
                     type="email"
                     placeholder="Enter your email"
-                    required
+                    value={form.email}
+                    onChange={(e) => handleChange("email", e.target.value)}
                   />
+                  {errors.email && (
+                    <p className="auth-field-error">{errors.email}</p>
+                  )}
                 </div>
 
                 <div className="input-group">
@@ -63,8 +126,12 @@ function Login() {
                   <input
                     type="password"
                     placeholder="Enter your password"
-                    required
+                    value={form.password}
+                    onChange={(e) => handleChange("password", e.target.value)}
                   />
+                  {errors.password && (
+                    <p className="auth-field-error">{errors.password}</p>
+                  )}
                 </div>
 
                 {!isLogin && (
@@ -73,24 +140,28 @@ function Login() {
                     <input
                       type="password"
                       placeholder="Confirm password"
-                      required
+                      value={form.confirmPassword}
+                      onChange={(e) =>
+                        handleChange("confirmPassword", e.target.value)
+                      }
                     />
+                    {errors.confirmPassword && (
+                      <p className="auth-field-error">
+                        {errors.confirmPassword}
+                      </p>
+                    )}
                   </div>
                 )}
 
                 {isLogin && (
-                  <Link
-                    to="/forgot-password"
-                    className="forgot-link"
-                  >
+                  <Link to="/forgot-password" className="forgot-link">
                     Forgot Password?
                   </Link>
                 )}
 
-                <button
-                  type="submit"
-                  className="auth-submit-btn"
-                >
+                {authError && <p className="auth-field-error">{authError}</p>}
+
+                <button type="submit" className="auth-submit-btn">
                   {isLogin ? "Login" : "Create Account"}
                 </button>
 
@@ -105,7 +176,10 @@ function Login() {
                 <button
                   type="button"
                   className="auth-toggle-btn"
-                  onClick={() => setIsLogin(!isLogin)}
+                  onClick={() => {
+                    setIsLogin(!isLogin);
+                    setErrors({});
+                  }}
                 >
                   {isLogin ? " Sign Up" : " Login"}
                 </button>

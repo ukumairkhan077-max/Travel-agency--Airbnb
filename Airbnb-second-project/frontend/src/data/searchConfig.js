@@ -31,3 +31,32 @@ export const serviceCategories = [
   "Home Organizing",
   "Floristry",
 ];
+
+// Amenities that actually appear across dummylisting.js, used for the
+// Homes filter sidebar.
+export const homeAmenities = [
+  "Solar power",
+  "Gas heater",
+  "Free parking",
+  "Air conditioning",
+  "Kitchen",
+  "Lawn/Garden",
+  "Elevator",
+  "Washer",
+  "Prayer room (Mosalla)",
+  "Balcony",
+  "Study room",
+  "Dining area",
+  "Wifi",
+  "CCTV",
+  "Backup generator",
+  "Servant quarter",
+  "Geyser",
+  "Rooftop access",
+  "Security guard",
+];
+
+// Price bounds observed in dummylisting.js (PKR/night), used for the
+// price range slider defaults.
+export const homePriceBounds = { min: 5000, max: 45000 };
+export const servicePriceBounds = { min: 0, max: 200 };
