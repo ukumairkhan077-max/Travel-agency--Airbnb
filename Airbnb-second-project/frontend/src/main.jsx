@@ -3,6 +3,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { AppProvider } from "./context/AppContext";
+import { AuthProvider } from "./context/AuthContext";
+import { WishlistProvider } from "./context/WishlistContext";
+import "leaflet/dist/leaflet.css";
 import "./styles/footer.css"
 import "./styles/navbar.css"
 import "./styles/searchbar.css"
@@ -17,7 +20,11 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
       <AppProvider>
-        <App />
+        <AuthProvider>
+          <WishlistProvider>
+            <App />
+          </WishlistProvider>
+        </AuthProvider>
       </AppProvider>
     </BrowserRouter>
   </StrictMode>

@@ -30,6 +30,7 @@ function buildInitialForm(initialValues) {
       googleMapUrl: "",
       price: "",
       currency: "PKR",
+      maxGuests: "4",
       hostName: "",
       images: [""],
       amenities: [],
@@ -46,6 +47,7 @@ function buildInitialForm(initialValues) {
     googleMapUrl: initialValues.googleMapUrl || "",
     price: initialValues.price ?? "",
     currency: initialValues.currency || "PKR",
+    maxGuests: initialValues.maxGuests ?? "4",
     hostName: initialValues.host || "",
     images: initialValues.images?.length ? initialValues.images : [""],
     amenities: initialValues.amenities || [],
@@ -121,6 +123,8 @@ function HomeForm({ initialValues, onSubmit, submitLabel = "Publish Home" }) {
       nextErrors.fullAddress = "Full address is required.";
     if (!isPositiveNumber(form.price))
       nextErrors.price = "Price must be a positive number.";
+    if (!isPositiveNumber(form.maxGuests))
+      nextErrors.maxGuests = "Max guests must be a positive number.";
     if (!form.hostName.trim()) nextErrors.hostName = "Host name is required.";
 
     if (cleanedImages.length === 0) {
@@ -154,6 +158,7 @@ function HomeForm({ initialValues, onSubmit, submitLabel = "Publish Home" }) {
       googleMapUrl: form.googleMapUrl.trim(),
       price: Number(form.price),
       currency: form.currency,
+      maxGuests: Number(form.maxGuests),
       host: form.hostName.trim(),
       images: cleanedImages,
       amenities: form.amenities,
@@ -282,6 +287,20 @@ function HomeForm({ initialValues, onSubmit, submitLabel = "Publish Home" }) {
                 </option>
               ))}
             </select>
+          </div>
+
+          <div className="home-form-field">
+            <label>Max Guests</label>
+            <input
+              type="number"
+              min="1"
+              value={form.maxGuests}
+              onChange={(e) => update("maxGuests", e.target.value)}
+              placeholder="4"
+            />
+            {errors.maxGuests && (
+              <p className="home-form-error">{errors.maxGuests}</p>
+            )}
           </div>
         </div>
       </section>

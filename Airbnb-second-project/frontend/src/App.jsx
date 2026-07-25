@@ -1,10 +1,14 @@
 import Home from "./pages/Home";
 import Listing from "./pages/Alllisting";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 import Listingdetail from "./pages/Listingdetail";
 import ServicePage from "./pages/ServicePage";
 import ServiceDetail from "./pages/ServiceDetail";
 import ConfirmPay from "./pages/ConfirmPay/ConfirmPay";
+import GuestProfile from "./pages/GuestProfile";
+import GuestTrips from "./pages/GuestTrips";
+import Wishlist from "./pages/Wishlist";
 
 import BecomeHost from "./pages/Host/BecomeHost";
 import HostSignup from "./pages/Host/HostSignup";
@@ -22,6 +26,8 @@ import BookingDetails from "./pages/Booking/BookingDetails";
 import BookingQuestion from "./pages/Booking/BookingQuestion";
 import ThankYou from "./pages/Booking/ThankYou";
 
+import ProtectedRoute from "./components/Auth/ProtectedRoute";
+
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -33,7 +39,33 @@ function App() {
       <Route path="/services" element={<ServicePage />} />
       <Route path="/services/:id" element={<ServiceDetail />} />
       <Route path="/login" element={<Login />} />
-      <Route path="/confirm-pay/:id" element={<ConfirmPay />} />
+      <Route path="/forgot-password" element={<ForgotPassword />} />
+
+      {/* Guest-only pages */}
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <GuestProfile />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/trips"
+        element={
+          <ProtectedRoute>
+            <GuestTrips />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/wishlist"
+        element={
+          <ProtectedRoute>
+            <Wishlist />
+          </ProtectedRoute>
+        }
+      />
 
       {/* Become a Host */}
       <Route path="/become-host" element={<BecomeHost />} />
@@ -49,10 +81,46 @@ function App() {
       <Route path="/host/profile" element={<HostProfile />} />
 
       {/* Booking flow: Reserve -> Booking Details -> Question -> (Service) -> Confirm & Pay -> Thank You */}
-      <Route path="/booking/:id/details" element={<BookingDetails />} />
-      <Route path="/booking/:id/question" element={<BookingQuestion />} />
-      <Route path="/thank-you/:bookingId" element={<ThankYou />} />
-      <Route path="/booking/view/:bookingId" element={<ThankYou />} />
+      <Route
+        path="/booking/:id/details"
+        element={
+          <ProtectedRoute>
+            <BookingDetails />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/booking/:id/question"
+        element={
+          <ProtectedRoute>
+            <BookingQuestion />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/confirm-pay/:id"
+        element={
+          <ProtectedRoute>
+            <ConfirmPay />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/thank-you/:bookingId"
+        element={
+          <ProtectedRoute>
+            <ThankYou />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/booking/view/:bookingId"
+        element={
+          <ProtectedRoute>
+            <ThankYou />
+          </ProtectedRoute>
+        }
+      />
 
     </Routes>
   );

@@ -52,13 +52,35 @@
     color: #222;
 }
 
-.service-heart-icon {
+.service-heart-btn {
     position: absolute;
     top: 12px;
     right: 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.service-heart-icon {
     color: white;
     font-size: 18px;
     filter: drop-shadow(0 0 5px rgba(0, 0, 0, .5));
+    transition: transform .15s ease;
+}
+
+.service-heart-btn:hover .service-heart-icon {
+    transform: scale(1.15);
+}
+
+.service-heart-icon-active {
+    color: #ff385c;
 }
 
 .service-info {

@@ -80,13 +80,35 @@
     font-weight:600;
 }
 
-.heart-icon{
+.heart-btn{
     position:absolute;
     top:12px;
     right:12px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:none;
+    border:none;
+    padding:0;
+    cursor:pointer;
+    z-index: 2;
+}
+
+.heart-icon{
     color:white;
     font-size:18px;
     filter:drop-shadow(0 0 5px rgba(0,0,0,.5));
+    transition: transform .15s ease;
+}
+
+.heart-btn:hover .heart-icon{
+    transform: scale(1.15);
+}
+
+.heart-icon-active{
+    color:#ff385c;
 }
 
 .listing-info{
@@ -161,4 +183,26 @@
     padding: 60px 20px;
     font-size: 16px;
     color: #717171;
+}
+
+.listing-page-body{
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px 40px 0;
+}
+
+.listing-page-results{
+    flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 900px){
+    .listing-page-body{
+        flex-direction: column;
+        padding: 16px 20px 0;
+    }
 }

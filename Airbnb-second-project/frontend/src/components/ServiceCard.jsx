@@ -1,8 +1,29 @@
-import { Link, useLocation } from "react-router-dom";
-import { FaHeart, FaStar } from "react-icons/fa";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FaHeart, FaRegHeart, FaStar } from "react-icons/fa";
+import { useAuth } from "../context/AuthContext";
+import { useWishlist } from "../context/WishlistContext";
 
 function ServiceCard({ service }) {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
+  const { isSaved, toggleWishlist } = useWishlist();
+
+  function handleHeartClick(e) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!isAuthenticated) {
+      navigate("/login", { state: { from: "/services" } });
+      return;
+    }
+
+    toggleWishlist("service", service.id, {
+      title: service.title,
+      subtitle: `${service.location.city} · ${service.category}`,
+      image: service.heroImage,
+    });
+  }
 
   return (
     <Link
@@ -23,7 +44,18 @@ function ServiceCard({ service }) {
             <span className="service-badge">{service.badge}</span>
           )}
 
-          <FaHeart className="service-heart-icon" />
+          <button
+            type="button"
+            className="service-heart-btn"
+            onClick={handleHeartClick}
+            aria-label="Save to wishlist"
+          >
+            {isSaved("service", service.id) ? (
+              <FaHeart className="service-heart-icon service-heart-icon-active" />
+            ) : (
+              <FaRegHeart className="service-heart-icon" />
+            )}
+          </button>
         </div>
 
         <div className="service-info">
