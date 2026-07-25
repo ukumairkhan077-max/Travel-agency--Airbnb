@@ -36,6 +36,11 @@
     color: #717171;
 }
 
+.property-map-pin {
+    background: transparent;
+    border: none;
+}
+
 @media (max-width: 700px) {
     .property-map-container {
         height: 260px;

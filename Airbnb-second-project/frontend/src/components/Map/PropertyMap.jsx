@@ -1,22 +1,23 @@
 import { MapContainer, TileLayer, Marker, Popup, Circle } from "react-leaflet";
 import L from "leaflet";
-import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
-import markerIcon from "leaflet/dist/images/marker-icon.png";
-import markerShadow from "leaflet/dist/images/marker-shadow.png";
 import { getCoordinatesFor } from "../../utils/cityCoordinates";
 import "leaflet/dist/leaflet.css";
 import "./PropertyMap.css";
 
-// Leaflet's default marker icon paths break under Vite's bundler unless we
-// explicitly point them at the bundled asset URLs.
-const defaultIcon = L.icon({
-  iconUrl: markerIcon,
-  iconRetinaUrl: markerIcon2x,
-  shadowUrl: markerShadow,
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowSize: [41, 41],
+// Leaflet's default marker icon relies on bundler-specific asset paths that
+// break inconsistently across setups. We avoid that entirely by building a
+// small inline SVG pin instead of importing Leaflet's raster PNG icons.
+const pinIcon = L.divIcon({
+  className: "property-map-pin",
+  html: `
+    <svg width="30" height="40" viewBox="0 0 30 40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15 0C6.7 0 0 6.7 0 15c0 11.25 15 25 15 25s15-13.75 15-25C30 6.7 23.3 0 15 0z" fill="#ff385c"/>
+      <circle cx="15" cy="15" r="6" fill="#ffffff"/>
+    </svg>
+  `,
+  iconSize: [30, 40],
+  iconAnchor: [15, 40],
+  popupAnchor: [0, -36],
 });
 
 /**
@@ -61,7 +62,7 @@ function PropertyMap({ city, area, id, title, approximate = true }) {
               }}
             />
           ) : (
-            <Marker position={[lat, lng]} icon={defaultIcon}>
+            <Marker position={[lat, lng]} icon={pinIcon}>
               <Popup>{title}</Popup>
             </Marker>
           )}
