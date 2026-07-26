@@ -60,6 +60,38 @@
     color: #222222;
     margin-bottom: 12px;
 }
+.filter-bar-select {
+    width: 100%;
+    padding: 10px 12px;
+
+    border: 1px solid #b0b0b0;
+    border-radius: 8px;
+
+    font-size: 13px;
+    color: #222222;
+    background: #fff;
+
+    outline: none;
+    cursor: pointer;
+}
+
+.filter-bar-select:focus {
+    border-color: #222222;
+    box-shadow: 0 0 0 1px #222222;
+}
+
+.filter-bar-date-row {
+    display: flex;
+    gap: 10px;
+}
+
+.filter-bar-date-row .filter-bar-price-field {
+    flex: 1;
+}
+
+.filter-bar-date-row input[type="date"] {
+    width: 100%;
+}
 
 .filter-bar-price-row {
     display: flex;

@@ -1,3 +1,4 @@
+import { cities, serviceCategories } from "../../data/searchConfig";
 import "./FilterBar.css";
 
 function FilterBar({
@@ -6,6 +7,16 @@ function FilterBar({
   onChange,
   priceBounds,
   amenitiesList = [],
+  showLocation = false,
+  city = "",
+  onCityChange,
+  showDates = false,
+  checkIn = "",
+  checkOut = "",
+  onDatesChange,
+  showCategory = false,
+  category = "",
+  onCategoryChange,
 }) {
   function update(field, value) {
     onChange({ ...filters, [field]: value });
@@ -26,6 +37,9 @@ function FilterBar({
       amenities: [],
       guests: 1,
     });
+    if (onCityChange) onCityChange("");
+    if (onDatesChange) onDatesChange("", "");
+    if (onCategoryChange) onCategoryChange("");
   }
 
   return (
@@ -36,6 +50,66 @@ function FilterBar({
           Clear all
         </button>
       </div>
+
+      {showLocation && (
+        <div className="filter-bar-section">
+          <h4>Where</h4>
+          <select
+            className="filter-bar-select"
+            value={city}
+            onChange={(e) => onCityChange(e.target.value)}
+          >
+            <option value="">Anywhere</option>
+            {cities.map((c) => (
+              <option key={c.name} value={c.name}>
+                {c.name}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {showCategory && (
+        <div className="filter-bar-section">
+          <h4>Service type</h4>
+          <select
+            className="filter-bar-select"
+            value={category}
+            onChange={(e) => onCategoryChange(e.target.value)}
+          >
+            <option value="">Any service</option>
+            {serviceCategories.map((cat) => (
+              <option key={cat} value={cat}>
+                {cat}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
+
+      {showDates && (
+        <div className="filter-bar-section">
+          <h4>When</h4>
+          <div className="filter-bar-date-row">
+            <div className="filter-bar-price-field">
+              <label>Check-in</label>
+              <input
+                type="date"
+                value={checkIn}
+                onChange={(e) => onDatesChange(e.target.value, checkOut)}
+              />
+            </div>
+            <div className="filter-bar-price-field">
+              <label>Check-out</label>
+              <input
+                type="date"
+                value={checkOut}
+                onChange={(e) => onDatesChange(checkIn, e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="filter-bar-section">
         <h4>Price range ({mode === "homes" ? "Rs./night" : "USD"})</h4>
