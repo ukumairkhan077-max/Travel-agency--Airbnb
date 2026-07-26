@@ -16,18 +16,9 @@ function Listing() {
     guests: 1,
   });
 
-  function handleSearch({ location, checkIn, checkOut, guests }) {
-    setFilterCity(location || "");
-    setDates({ checkIn, checkOut });
-    setFilters((prev) => ({
-      ...prev,
-      guests: guests?.adults ? guests.adults + guests.children : prev.guests,
-    }));
-  }
-
   return (
     <>
-      <Navbar variant="compact" searchType="stays" onSearch={handleSearch} />
+      <Navbar variant="full" />
 
       <div className="listing-page-body">
         <FilterBar
@@ -36,6 +27,13 @@ function Listing() {
           onChange={setFilters}
           priceBounds={homePriceBounds}
           amenitiesList={homeAmenities}
+          showLocation
+          city={filterCity}
+          onCityChange={setFilterCity}
+          showDates
+          checkIn={dates.checkIn}
+          checkOut={dates.checkOut}
+          onDatesChange={(checkIn, checkOut) => setDates({ checkIn, checkOut })}
         />
 
         <div className="listing-page-results">

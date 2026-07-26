@@ -24,7 +24,7 @@ function ServiceDetail() {
   if (!service) {
     return (
       <>
-        <Navbar variant="compact" searchType="services" />
+        <Navbar variant="full" searchType="services" />
 
         <div className="service-not-found">
           <h2>Service not found</h2>
@@ -55,7 +55,7 @@ function ServiceDetail() {
 
   return (
     <>
-      <Navbar variant="compact" searchType="services" />
+      <Navbar variant="full" searchType="services" />
 
       <div className="service-detail">
         <div className="service-detail-left">

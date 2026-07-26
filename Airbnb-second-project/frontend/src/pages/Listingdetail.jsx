@@ -49,7 +49,7 @@ function Listingdetail() {
 
     return (
         <>
-            <Navbar variant="compact" searchType="stays" />
+            <Navbar variant="full" />
 
             <div className="listing-detail">
 

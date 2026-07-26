@@ -56,7 +56,7 @@ function ServicePage() {
 
   return (
     <>
-      <Navbar variant="compact" searchType="services" onSearch={handleSearch} />
+      <Navbar variant="full" searchType="services" onSearch={handleSearch} />
 
       <div className="service-page-body">
         <FilterBar

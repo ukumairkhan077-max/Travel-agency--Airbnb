@@ -15,8 +15,8 @@ import { useAuth } from "../context/AuthContext";
  *
  * Props:
  *  - variant: "full" | "compact"
- *      "full"    -> logo + center nav tabs (Homes/Experiences/Services), used on
- *                   the Home page where a big SearchBar is rendered underneath.
+ *      "full"    -> logo + center nav tabs (Homes/Services), used on
+ *                   the Home page.
  *      "compact" -> logo + a small pill SearchBar embedded in the middle of the
  *                   bar itself, used on inner pages (Services, Listings, etc.)
  *  - searchType: "stays" | "services" -> forwarded to the embedded SearchBar
@@ -68,35 +68,32 @@ function Navbar({ variant = "full", searchType = "stays", onSearch }) {
         {/* Middle: nav tabs (full) or compact search pill (compact) */}
         {variant === "full" ? (
           <div className="menu">
-            <NavLink
-              to="/listings"
-              className={({ isActive }) => "menu-item" + (isActive ? " active" : "")}
-            >
-              <MdTravelExplore className="menu-icon" />
-              <span>All</span>
-            </NavLink>
+            <div className="menu-pill">
+              <NavLink
+                to="/listings"
+                className={({ isActive }) => "menu-item" + (isActive ? " active" : "")}
+              >
+                <MdTravelExplore className="menu-icon" />
+                <span>All</span>
+              </NavLink>
 
-            <NavLink
-              to="/"
-              end
-              className={({ isActive }) => "menu-item" + (isActive ? " active" : "")}
-            >
-              <FaHome className="menu-icon" />
-              <span>Homes</span>
-            </NavLink>
+              <NavLink
+                to="/"
+                end
+                className={({ isActive }) => "menu-item" + (isActive ? " active" : "")}
+              >
+                <FaHome className="menu-icon" />
+                <span>Homes</span>
+              </NavLink>
 
-            <div className="menu-item">
-              <MdTravelExplore className="menu-icon" />
-              <span>Experiences</span>
+              <NavLink
+                to="/services"
+                className={({ isActive }) => "menu-item" + (isActive ? " active" : "")}
+              >
+                <RiServiceFill className="menu-icon" />
+                <span>Services</span>
+              </NavLink>
             </div>
-
-            <NavLink
-              to="/services"
-              className={({ isActive }) => "menu-item" + (isActive ? " active" : "")}
-            >
-              <RiServiceFill className="menu-icon" />
-              <span>Services</span>
-            </NavLink>
           </div>
         ) : (
           <div className="navbar-compact-search">
