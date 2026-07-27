@@ -39,6 +39,18 @@
     font-weight: 500;
 }
 
+.confirm-pay-error {
+    margin-bottom: 16px;
+    padding: 12px 14px;
+
+    background: #fdeaea;
+    border-left: 3px solid #d93900;
+    border-radius: 8px;
+
+    font-size: 13px;
+    color: #d93900;
+}
+
 .confirm-pay-btn {
     width: 100%;
     padding: 16px;

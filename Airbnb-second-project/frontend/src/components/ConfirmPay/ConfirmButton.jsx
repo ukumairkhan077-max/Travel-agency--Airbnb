@@ -1,6 +1,6 @@
 import "./ConfirmButton.css";
 
-function ConfirmButton({ agreedToTerms, onToggleTerms, onConfirm, isSubmitting }) {
+function ConfirmButton({ agreedToTerms, onToggleTerms, onConfirm, isSubmitting, error }) {
   return (
     <section className="cp-section confirm-button-section">
       <p className="confirm-terms-text">
@@ -19,6 +19,8 @@ function ConfirmButton({ agreedToTerms, onToggleTerms, onConfirm, isSubmitting }
         />
         <span>I agree to the terms and conditions</span>
       </label>
+
+      {error && <p className="confirm-pay-error">{error}</p>}
 
       <button
         type="button"
