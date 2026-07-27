@@ -40,3 +40,15 @@
         padding: 24px 20px 60px;
     }
 }
+.host-form-page-error {
+    margin-bottom: 20px;
+    padding: 14px 16px;
+
+    background: #fdeaea;
+    border-left: 3px solid #d93900;
+    border-radius: 8px;
+
+    font-size: 14px;
+    color: #d93900;
+    max-width: 720px;
+}

@@ -87,3 +87,8 @@
     border-color: #d93900;
     background: #fdeaea;
 }
+
+.host-item-card-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+}

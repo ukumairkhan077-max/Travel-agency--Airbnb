@@ -26,17 +26,21 @@ function HeroService({ service }) {
 
   const saved = isSaved("service", id);
 
-  function handleSaveClick() {
+  async function handleSaveClick() {
     if (!isAuthenticated) {
       navigate("/login", { state: { from: `/services/${id}` } });
       return;
     }
 
-    toggleWishlist("service", id, {
-      title,
-      subtitle: `${location.city} · ${service.category}`,
-      image: heroImage,
-    });
+    try {
+      await toggleWishlist("service", id, {
+        title,
+        subtitle: `${location.city} · ${service.category}`,
+        image: heroImage,
+      });
+    } catch (error) {
+      console.error("Couldn't update wishlist:", error);
+    }
   }
 
   async function handleShareClick() {

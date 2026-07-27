@@ -50,7 +50,7 @@ function Listingcard({ filterCity = "", filters = null }) {
     return acc;
   }, {});
 
-  function handleHeartClick(e, listing) {
+  async function handleHeartClick(e, listing) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -59,11 +59,15 @@ function Listingcard({ filterCity = "", filters = null }) {
       return;
     }
 
-    toggleWishlist("home", listing.id, {
-      title: listing.title,
-      subtitle: listing.location,
-      image: listing.images[0],
-    });
+    try {
+      await toggleWishlist("home", listing.id, {
+        title: listing.title,
+        subtitle: listing.location,
+        image: listing.images[0],
+      });
+    } catch (error) {
+      console.error("Couldn't update wishlist:", error);
+    }
   }
 
   if (visibleListings.length === 0) {

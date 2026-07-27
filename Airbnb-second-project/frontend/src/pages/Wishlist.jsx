@@ -11,6 +11,14 @@ function Wishlist() {
   const homes = items.filter((item) => item.type === "home");
   const services = items.filter((item) => item.type === "service");
 
+  async function handleRemove(type, id) {
+    try {
+      await toggleWishlist(type, id);
+    } catch (error) {
+      console.error("Couldn't update wishlist:", error);
+    }
+  }
+
   return (
     <>
       <Navbar variant="full" />
@@ -39,7 +47,7 @@ function Wishlist() {
                       <button
                         type="button"
                         className="wishlist-remove-btn"
-                        onClick={() => toggleWishlist("home", item.id)}
+                        onClick={() => handleRemove("home", item.id)}
                         aria-label="Remove from wishlist"
                       >
                         <FaHeart />
@@ -68,7 +76,7 @@ function Wishlist() {
                       <button
                         type="button"
                         className="wishlist-remove-btn"
-                        onClick={() => toggleWishlist("service", item.id)}
+                        onClick={() => handleRemove("service", item.id)}
                         aria-label="Remove from wishlist"
                       >
                         <FaHeart />

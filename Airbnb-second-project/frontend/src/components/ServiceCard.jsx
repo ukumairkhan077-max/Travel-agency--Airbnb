@@ -9,7 +9,7 @@ function ServiceCard({ service }) {
   const { isAuthenticated } = useAuth();
   const { isSaved, toggleWishlist } = useWishlist();
 
-  function handleHeartClick(e) {
+  async function handleHeartClick(e) {
     e.preventDefault();
     e.stopPropagation();
 
@@ -18,11 +18,15 @@ function ServiceCard({ service }) {
       return;
     }
 
-    toggleWishlist("service", service.id, {
-      title: service.title,
-      subtitle: `${service.location.city} · ${service.category}`,
-      image: service.heroImage,
-    });
+    try {
+      await toggleWishlist("service", service.id, {
+        title: service.title,
+        subtitle: `${service.location.city} · ${service.category}`,
+        image: service.heroImage,
+      });
+    } catch (error) {
+      console.error("Couldn't update wishlist:", error);
+    }
   }
 
   return (

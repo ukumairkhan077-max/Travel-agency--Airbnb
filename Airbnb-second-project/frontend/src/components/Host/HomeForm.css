@@ -226,6 +226,12 @@
     transform: translateY(-1px);
 }
 
+.home-form-submit-btn:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+    transform: none;
+}
+
 @media (max-width: 600px) {
     .home-form-row {
         flex-direction: column;

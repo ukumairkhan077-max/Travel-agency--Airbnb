@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HostPageLayout from "../../components/Host/HostPageLayout";
 import HomeForm from "../../components/Host/HomeForm";
@@ -7,8 +8,10 @@ import { generateNumericId } from "../../utils/idGenerator";
 function CreateHome() {
   const navigate = useNavigate();
   const { addHome, currentHost } = useApp();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(homeData) {
+  async function handleSubmit(homeData) {
     const home = {
       id: generateNumericId(),
       ...homeData,
@@ -19,8 +22,17 @@ function CreateHome() {
       createdAt: new Date().toISOString(),
     };
 
-    addHome(home);
-    navigate("/host/my-homes");
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      await addHome(home);
+      navigate("/host/my-homes");
+    } catch (err) {
+      setError(err.message || "Couldn't publish this home. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -28,7 +40,13 @@ function CreateHome() {
       title="Create Home"
       subtitle="Publish a new home — it will appear on the Home page, All Listings, and its city section instantly."
     >
-      <HomeForm onSubmit={handleSubmit} submitLabel="Publish Home" />
+      {error && <p className="host-form-page-error">{error}</p>}
+
+      <HomeForm
+        onSubmit={handleSubmit}
+        submitLabel="Publish Home"
+        isSubmitting={isSubmitting}
+      />
     </HostPageLayout>
   );
 }

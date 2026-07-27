@@ -101,7 +101,7 @@ function buildInitialForm(initialValues) {
   };
 }
 
-function ServiceForm({ initialValues, onSubmit, submitLabel = "Publish Service" }) {
+function ServiceForm({ initialValues, onSubmit, submitLabel = "Publish Service", isSubmitting = false }) {
   const [form, setForm] = useState(() => buildInitialForm(initialValues));
   const [errors, setErrors] = useState({});
 
@@ -647,8 +647,12 @@ function ServiceForm({ initialValues, onSubmit, submitLabel = "Publish Service" 
         </button>
       </section>
 
-      <button type="submit" className="service-form-submit-btn">
-        {submitLabel}
+      <button
+        type="submit"
+        className="service-form-submit-btn"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Saving..." : submitLabel}
       </button>
     </form>
   );

@@ -14,8 +14,10 @@ function Login() {
     confirmPassword: "",
   });
   const [errors, setErrors] = useState({});
+  const [authError, setAuthError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { login, signup, authError } = useAuth();
+  const { login, signup } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -50,20 +52,28 @@ function Login() {
     navigate(from, { replace: true, state: background });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!validate()) return;
 
-    const success = isLogin
-      ? login({ email: form.email, password: form.password })
-      : signup({
+    setAuthError("");
+    setIsSubmitting(true);
+
+    try {
+      if (isLogin) {
+        await login({ email: form.email, password: form.password });
+      } else {
+        await signup({
           fullName: form.fullName,
           email: form.email,
           password: form.password,
         });
-
-    if (success) {
+      }
       goToDestination();
+    } catch (error) {
+      setAuthError(error.message || "Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -161,8 +171,16 @@ function Login() {
 
                 {authError && <p className="auth-field-error">{authError}</p>}
 
-                <button type="submit" className="auth-submit-btn">
-                  {isLogin ? "Login" : "Create Account"}
+                <button
+                  type="submit"
+                  className="auth-submit-btn"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? "Please wait..."
+                    : isLogin
+                    ? "Login"
+                    : "Create Account"}
                 </button>
 
               </form>

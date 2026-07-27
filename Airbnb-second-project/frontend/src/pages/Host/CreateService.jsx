@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import HostPageLayout from "../../components/Host/HostPageLayout";
 import ServiceForm from "../../components/Host/ServiceForm";
@@ -7,8 +8,10 @@ import { generateServiceId } from "../../utils/idGenerator";
 function CreateService() {
   const navigate = useNavigate();
   const { addService, currentHost } = useApp();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  function handleSubmit(serviceData) {
+  async function handleSubmit(serviceData) {
     const service = {
       id: generateServiceId(serviceData.title),
       ...serviceData,
@@ -20,8 +23,17 @@ function CreateService() {
       createdAt: new Date().toISOString(),
     };
 
-    addService(service);
-    navigate("/host/my-services");
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      await addService(service);
+      navigate("/host/my-services");
+    } catch (err) {
+      setError(err.message || "Couldn't publish this service. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -29,7 +41,13 @@ function CreateService() {
       title="Create Service"
       subtitle="Publish a new service — it will appear on the Services page and its city section instantly."
     >
-      <ServiceForm onSubmit={handleSubmit} submitLabel="Publish Service" />
+      {error && <p className="host-form-page-error">{error}</p>}
+
+      <ServiceForm
+        onSubmit={handleSubmit}
+        submitLabel="Publish Service"
+        isSubmitting={isSubmitting}
+      />
     </HostPageLayout>
   );
 }

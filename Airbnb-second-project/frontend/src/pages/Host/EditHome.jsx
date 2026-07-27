@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import HostPageLayout from "../../components/Host/HostPageLayout";
 import HomeForm from "../../components/Host/HomeForm";
@@ -7,12 +8,23 @@ function EditHome() {
   const { id } = useParams();
   const navigate = useNavigate();
   const { myHomes, updateHome } = useApp();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
-  const home = myHomes.find((item) => item.id === Number(id));
+  const home = myHomes.find((item) => String(item.id) === String(id));
 
-  function handleSubmit(homeData) {
-    updateHome(home.id, homeData);
-    navigate("/host/my-homes");
+  async function handleSubmit(homeData) {
+    setError("");
+    setIsSubmitting(true);
+
+    try {
+      await updateHome(home.id, homeData);
+      navigate("/host/my-homes");
+    } catch (err) {
+      setError(err.message || "Couldn't save these changes. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (!home) {
@@ -31,10 +43,13 @@ function EditHome() {
       title="Edit Home"
       subtitle="Changes are reflected on the Home page, All Listings, and the listing detail page instantly."
     >
+      {error && <p className="host-form-page-error">{error}</p>}
+
       <HomeForm
         initialValues={home}
         onSubmit={handleSubmit}
         submitLabel="Save Changes"
+        isSubmitting={isSubmitting}
       />
     </HostPageLayout>
   );

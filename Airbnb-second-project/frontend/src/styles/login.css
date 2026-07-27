@@ -182,6 +182,12 @@
     transform:translateY(-2px);
 }
 
+.auth-submit-btn:disabled{
+    opacity: .65;
+    cursor: not-allowed;
+    transform: none;
+}
+
 .auth-toggle-text{
 
     margin-top:28px;

@@ -26,8 +26,8 @@ function HostSidebar() {
   const navigate = useNavigate();
   const { currentHost, logoutHost } = useApp();
 
-  function handleLogout() {
-    logoutHost();
+  async function handleLogout() {
+    await logoutHost();
     navigate("/");
   }
 

@@ -10,6 +10,7 @@ function HostItemCard({
   editHref,
   previewHref,
   onDelete,
+  isDeleting = false,
 }) {
   return (
     <div className="host-item-card">
@@ -34,8 +35,9 @@ function HostItemCard({
           type="button"
           className="host-item-card-btn host-item-card-btn-danger"
           onClick={onDelete}
+          disabled={isDeleting}
         >
-          <FaTrash /> Delete
+          <FaTrash /> {isDeleting ? "Deleting..." : "Delete"}
         </button>
       </div>
     </div>

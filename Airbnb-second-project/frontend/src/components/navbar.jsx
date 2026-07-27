@@ -15,8 +15,8 @@ import { useAuth } from "../context/AuthContext";
  *
  * Props:
  *  - variant: "full" | "compact"
- *      "full"    -> logo + center nav tabs (Homes/Services), used on
- *                   the Home page.
+ *      "full"    -> logo + center nav tabs (Homes/Experiences/Services), used on
+ *                   the Home page where a big SearchBar is rendered underneath.
  *      "compact" -> logo + a small pill SearchBar embedded in the middle of the
  *                   bar itself, used on inner pages (Services, Listings, etc.)
  *  - searchType: "stays" | "services" -> forwarded to the embedded SearchBar
@@ -45,14 +45,14 @@ function Navbar({ variant = "full", searchType = "stays", onSearch }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  function handleLogoutHost() {
-    logoutHost();
+  async function handleLogoutHost() {
+    await logoutHost();
     setMenuOpen(false);
     navigate("/");
   }
 
-  function handleLogoutGuest() {
-    logoutGuest();
+  async function handleLogoutGuest() {
+    await logoutGuest();
     setMenuOpen(false);
     navigate("/");
   }

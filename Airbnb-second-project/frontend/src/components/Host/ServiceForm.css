@@ -164,6 +164,12 @@
     transform: translateY(-1px);
 }
 
+.service-form-submit-btn:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+    transform: none;
+}
+
 @media (max-width: 600px) {
     .service-form-row {
         flex-direction: column;

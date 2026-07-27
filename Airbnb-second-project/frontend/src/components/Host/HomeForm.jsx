@@ -54,7 +54,7 @@ function buildInitialForm(initialValues) {
   };
 }
 
-function HomeForm({ initialValues, onSubmit, submitLabel = "Publish Home" }) {
+function HomeForm({ initialValues, onSubmit, submitLabel = "Publish Home", isSubmitting = false }) {
   const [form, setForm] = useState(() => buildInitialForm(initialValues));
   const [customAmenity, setCustomAmenity] = useState("");
   const [errors, setErrors] = useState({});
@@ -414,8 +414,12 @@ function HomeForm({ initialValues, onSubmit, submitLabel = "Publish Home" }) {
         )}
       </section>
 
-      <button type="submit" className="home-form-submit-btn">
-        {submitLabel}
+      <button
+        type="submit"
+        className="home-form-submit-btn"
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Saving..." : submitLabel}
       </button>
     </form>
   );

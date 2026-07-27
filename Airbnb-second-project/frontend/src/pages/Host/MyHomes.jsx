@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import HostPageLayout from "../../components/Host/HostPageLayout";
 import HostItemCard from "../../components/Host/HostItemCard";
@@ -6,10 +7,21 @@ import "./MyHomes.css";
 
 function MyHomes() {
   const { myHomes, deleteHome } = useApp();
+  const [deletingId, setDeletingId] = useState(null);
+  const [error, setError] = useState("");
 
-  function handleDelete(id, title) {
-    if (window.confirm(`Delete "${title}"? This can't be undone.`)) {
-      deleteHome(id);
+  async function handleDelete(id, title) {
+    if (!window.confirm(`Delete "${title}"? This can't be undone.`)) return;
+
+    setError("");
+    setDeletingId(id);
+
+    try {
+      await deleteHome(id);
+    } catch (err) {
+      setError(err.message || "Couldn't delete this home. Please try again.");
+    } finally {
+      setDeletingId(null);
     }
   }
 
@@ -18,6 +30,8 @@ function MyHomes() {
       title="My Homes"
       subtitle="Homes you've listed. Edits and deletions apply instantly everywhere."
     >
+      {error && <p className="host-form-page-error">{error}</p>}
+
       {myHomes.length === 0 ? (
         <div className="my-homes-empty">
           <p>You haven't listed any homes yet.</p>
@@ -36,6 +50,7 @@ function MyHomes() {
               editHref={`/host/edit-home/${home.id}`}
               previewHref={`/listing/${home.id}`}
               onDelete={() => handleDelete(home.id, home.title)}
+              isDeleting={deletingId === home.id}
             />
           ))}
         </div>
