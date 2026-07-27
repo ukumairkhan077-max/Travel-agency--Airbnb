@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { useAuth } from "./AuthContext";
+import { simulateRequest } from "../utils/api";
 
 const WishlistContext = createContext(null);
 
@@ -45,12 +46,14 @@ export function WishlistProvider({ children }) {
   );
 
   const toggleWishlist = useCallback((type, id, meta = {}) => {
-    setItems((prev) => {
-      const exists = prev.some((item) => item.type === type && item.id === id);
-      if (exists) {
-        return prev.filter((item) => !(item.type === type && item.id === id));
-      }
-      return [...prev, { type, id, ...meta, savedAt: new Date().toISOString() }];
+    return simulateRequest(() => {
+      setItems((prev) => {
+        const exists = prev.some((item) => item.type === type && item.id === id);
+        if (exists) {
+          return prev.filter((item) => !(item.type === type && item.id === id));
+        }
+        return [...prev, { type, id, ...meta, savedAt: new Date().toISOString() }];
+      });
     });
   }, []);
 

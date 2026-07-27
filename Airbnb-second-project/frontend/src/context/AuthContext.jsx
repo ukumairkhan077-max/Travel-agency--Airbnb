@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, useCallback } from "react";
+import { simulateRequest } from "../utils/api";
 
 const AuthContext = createContext(null);
 
@@ -35,72 +36,78 @@ export function AuthProvider({ children }) {
   const [guestUser, setGuestUser] = useState(() =>
     loadFromStorage(STORAGE_KEYS.session, null)
   );
-  const [authError, setAuthError] = useState("");
 
   useEffect(() => saveToStorage(STORAGE_KEYS.accounts, accounts), [accounts]);
   useEffect(() => saveToStorage(STORAGE_KEYS.session, guestUser), [guestUser]);
 
+  // signup()/login() reject with an Error on failure (rather than returning
+  // false) so every call site already does try/catch — the same shape a
+  // real API call's rejected fetch()/4xx response would produce.
   const signup = useCallback(
     ({ fullName, email, password }) => {
-      setAuthError("");
-      const normalizedEmail = email.trim().toLowerCase();
+      return simulateRequest(() => {
+        const normalizedEmail = email.trim().toLowerCase();
 
-      const existing = accounts.find((acc) => acc.email === normalizedEmail);
-      if (existing) {
-        setAuthError("An account with this email already exists.");
-        return false;
-      }
+        const existing = accounts.find((acc) => acc.email === normalizedEmail);
+        if (existing) {
+          throw new Error("An account with this email already exists.");
+        }
 
-      const account = {
-        id: generateGuestId(),
-        fullName: fullName.trim(),
-        email: normalizedEmail,
-        password, // demo-only: never store plaintext passwords in a real app
-        createdAt: new Date().toISOString(),
-      };
+        const account = {
+          id: generateGuestId(),
+          fullName: fullName.trim(),
+          email: normalizedEmail,
+          password, // demo-only: never store plaintext passwords in a real app
+          createdAt: new Date().toISOString(),
+        };
 
-      setAccounts((prev) => [...prev, account]);
-      setGuestUser({
-        id: account.id,
-        fullName: account.fullName,
-        email: account.email,
-        createdAt: account.createdAt,
+        setAccounts((prev) => [...prev, account]);
+
+        const session = {
+          id: account.id,
+          fullName: account.fullName,
+          email: account.email,
+          createdAt: account.createdAt,
+        };
+        setGuestUser(session);
+        return session;
       });
-      return true;
     },
     [accounts]
   );
 
   const login = useCallback(
     ({ email, password }) => {
-      setAuthError("");
-      const normalizedEmail = email.trim().toLowerCase();
+      return simulateRequest(() => {
+        const normalizedEmail = email.trim().toLowerCase();
 
-      const account = accounts.find((acc) => acc.email === normalizedEmail);
-      if (!account || account.password !== password) {
-        setAuthError("Incorrect email or password.");
-        return false;
-      }
+        const account = accounts.find((acc) => acc.email === normalizedEmail);
+        if (!account || account.password !== password) {
+          throw new Error("Incorrect email or password.");
+        }
 
-      setGuestUser({
-        id: account.id,
-        fullName: account.fullName,
-        email: account.email,
-        createdAt: account.createdAt,
+        const session = {
+          id: account.id,
+          fullName: account.fullName,
+          email: account.email,
+          createdAt: account.createdAt,
+        };
+        setGuestUser(session);
+        return session;
       });
-      return true;
     },
     [accounts]
   );
 
   const logout = useCallback(() => {
-    setGuestUser(null);
+    return simulateRequest(() => {
+      setGuestUser(null);
+    });
   }, []);
 
   const value = {
     guestUser,
     isAuthenticated: Boolean(guestUser),
-    authError,
     signup,
     login,
     logout,
