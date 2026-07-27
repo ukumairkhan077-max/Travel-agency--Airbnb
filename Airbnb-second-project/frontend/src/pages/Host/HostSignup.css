@@ -128,6 +128,11 @@
     background: #e31c5f;
 }
 
+.host-signup-submit-btn:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
 .host-signup-footer-text {
     margin-top: 20px;
     text-align: center;

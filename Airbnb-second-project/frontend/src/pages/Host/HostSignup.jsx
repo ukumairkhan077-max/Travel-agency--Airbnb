@@ -28,6 +28,8 @@ function HostSignup() {
   const [form, setForm] = useState(INITIAL_FORM);
   const [agreed, setAgreed] = useState(false);
   const [errors, setErrors] = useState({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
   function handleChange(field, value) {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -57,7 +59,7 @@ function HostSignup() {
     return Object.keys(nextErrors).length === 0;
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     if (!validate()) return;
 
@@ -72,8 +74,17 @@ function HostSignup() {
       createdAt: new Date().toISOString(),
     };
 
-    loginHost(host);
-    navigate("/host/dashboard");
+    setSubmitError("");
+    setIsSubmitting(true);
+
+    try {
+      await loginHost(host);
+      navigate("/host/dashboard");
+    } catch (err) {
+      setSubmitError(err.message || "Couldn't create your host account. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   return (
@@ -208,8 +219,16 @@ function HostSignup() {
               <p className="host-field-error">{errors.agreed}</p>
             )}
 
-            <button type="submit" className="host-signup-submit-btn">
-              Continue
+            {submitError && (
+              <p className="host-field-error">{submitError}</p>
+            )}
+
+            <button
+              type="submit"
+              className="host-signup-submit-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Please wait..." : "Continue"}
             </button>
           </form>
 
