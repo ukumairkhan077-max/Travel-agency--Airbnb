@@ -44,7 +44,7 @@ function ConfirmPay() {
   const { homes, addBooking } = useApp();
   const { guestUser } = useAuth();
 
-  const listing = homes.find((item) => item.id === Number(id));
+  const listing = homes.find((item) => String(item.id) === String(id));
 
   const passedState = location.state || {};
   const selectedService = passedState.selectedService || null;
@@ -75,6 +75,7 @@ function ConfirmPay() {
   const [appliedPromo, setAppliedPromo] = useState(null);
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [paymentError, setPaymentError] = useState("");
 
   const reviewCount = listing
     ? 20 + ((listing.id * 37) % 260)
@@ -145,16 +146,21 @@ function ConfirmPay() {
     return false;
   }
 
-  function handleConfirm() {
+  async function handleConfirm() {
     if (!agreedToTerms) return;
 
+    setPaymentError("");
     setIsSubmitting(true);
 
-    // Simulated payment processing (no backend wired up yet)
-    setTimeout(() => {
+    try {
+      // Brief pause so the "Processing..." state is visible — once a real
+      // payment gateway is wired up, this delay is naturally however long
+      // the actual charge takes.
+      await new Promise((resolve) => setTimeout(resolve, 1200));
+
       const bookingId = generateBookingId();
 
-      addBooking({
+      await addBooking({
         id: bookingId,
         guestId: guestUser.id,
         homeId: listing.id,
@@ -168,9 +174,14 @@ function ConfirmPay() {
         createdAt: new Date().toISOString(),
       });
 
-      setIsSubmitting(false);
       navigate(`/thank-you/${bookingId}`);
-    }, 1200);
+    } catch (error) {
+      setPaymentError(
+        error.message || "We couldn't process your payment. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   if (!listing) {
@@ -242,6 +253,7 @@ function ConfirmPay() {
               onToggleTerms={() => setAgreedToTerms((prev) => !prev)}
               onConfirm={handleConfirm}
               isSubmitting={isSubmitting}
+              error={paymentError}
             />
           </div>
 
