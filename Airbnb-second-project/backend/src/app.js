@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
@@ -19,7 +20,10 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
-// Route mounting happens here once you build src/routes/index.js
-// app.use("/api", require("./routes"));
+// All feature routes
+app.use("/api", require("./routes"));
+
+// Must be registered last — catches errors thrown/forwarded by any route above
+app.use(errorHandler);
 
 module.exports = app;
