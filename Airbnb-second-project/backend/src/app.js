@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const errorHandler = require("./middleware/errorHandler");
 
 const app = express();
 
@@ -22,8 +21,5 @@ app.get("/api/health", (req, res) => {
 
 // All feature routes
 app.use("/api", require("./routes"));
-
-// Must be registered last — catches errors thrown/forwarded by any route above
-app.use(errorHandler);
 
 module.exports = app;
