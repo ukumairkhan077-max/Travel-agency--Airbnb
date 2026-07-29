@@ -45,10 +45,9 @@ const hostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-hostSchema.pre("save", async function hashPassword(next) {
-  if (!this.isModified("password")) return next();
+hostSchema.pre("save", async function hashPassword() {
+  if (!this.isModified("password")) return;
   this.password = await bcrypt.hash(this.password, 10);
-  next();
 });
 
 hostSchema.methods.comparePassword = function comparePassword(candidate) {
