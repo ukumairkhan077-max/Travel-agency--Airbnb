@@ -1,146 +1,232 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo } from "react";
-import seedHomes from "../data/dummylisting";
-import seedServices from "../data/services";
-import { simulateRequest } from "../utils/api";
+import { apiRequest } from "../utils/api";
+import { useAuth } from "./AuthContext";
 
 const AppContext = createContext(null);
 
-const STORAGE_KEYS = {
-  homes: "airbnb_clone_created_homes",
-  services: "airbnb_clone_created_services",
-  bookings: "airbnb_clone_bookings",
-  host: "airbnb_clone_current_host",
-};
+const HOST_TOKEN_KEY = "airbnb_clone_host_token";
 
-function loadFromStorage(key, fallback) {
-  try {
-    const raw = localStorage.getItem(key);
-    return raw ? JSON.parse(raw) : fallback;
-  } catch {
-    return fallback;
-  }
+// Mongo documents come back as `_id` — the rest of this app (routes, list
+// keys, edit/delete lookups) was built around a plain `id` field, so every
+// document is normalized once here rather than touching every component.
+function withId(doc) {
+  if (!doc) return doc;
+  return { ...doc, id: doc._id ?? doc.id };
 }
 
-function saveToStorage(key, value) {
-  try {
-    localStorage.setItem(key, JSON.stringify(value));
-  } catch {
-    // Ignore quota / serialization errors — the app still works in-memory.
-  }
+function withIds(docs) {
+  return (docs || []).map(withId);
 }
 
 export function AppProvider({ children }) {
-  const [createdHomes, setCreatedHomes] = useState(() =>
-    loadFromStorage(STORAGE_KEYS.homes, [])
-  );
-  const [createdServices, setCreatedServices] = useState(() =>
-    loadFromStorage(STORAGE_KEYS.services, [])
-  );
-  const [bookings, setBookings] = useState(() =>
-    loadFromStorage(STORAGE_KEYS.bookings, [])
-  );
-  const [currentHost, setCurrentHost] = useState(() =>
-    loadFromStorage(STORAGE_KEYS.host, null)
-  );
+  const { token: guestToken, guestUser } = useAuth();
 
-  useEffect(() => saveToStorage(STORAGE_KEYS.homes, createdHomes), [createdHomes]);
-  useEffect(() => saveToStorage(STORAGE_KEYS.services, createdServices), [createdServices]);
-  useEffect(() => saveToStorage(STORAGE_KEYS.bookings, bookings), [bookings]);
-  useEffect(() => saveToStorage(STORAGE_KEYS.host, currentHost), [currentHost]);
+  const [homes, setHomes] = useState([]);
+  const [services, setServices] = useState([]);
+  const [bookings, setBookings] = useState([]);
 
-  // Host-created content is shown first, then the seed catalogue —
-  // every page that lists homes/services reads from these merged arrays,
-  // so creating/editing/deleting shows up everywhere instantly.
-  const homes = useMemo(() => [...createdHomes, ...seedHomes], [createdHomes]);
-  const services = useMemo(() => [...createdServices, ...seedServices], [createdServices]);
+  const [hostToken, setHostToken] = useState(() => localStorage.getItem(HOST_TOKEN_KEY));
+  const [currentHost, setCurrentHost] = useState(null);
+
+  function persistHostToken(nextToken) {
+    setHostToken(nextToken);
+    if (nextToken) {
+      localStorage.setItem(HOST_TOKEN_KEY, nextToken);
+    } else {
+      localStorage.removeItem(HOST_TOKEN_KEY);
+    }
+  }
+
+  // Public catalogue — every listing/services page reads from this, so it's
+  // loaded once on mount straight from the database.
+  useEffect(() => {
+    apiRequest("/homes")
+      .then((data) => setHomes(withIds(data)))
+      .catch((err) => console.error("Couldn't load homes:", err.message));
+
+    apiRequest("/services")
+      .then((data) => setServices(withIds(data)))
+      .catch((err) => console.error("Couldn't load services:", err.message));
+  }, []);
+
+  // Restore the host session on load if a token was saved.
+  useEffect(() => {
+    let cancelled = false;
+
+    if (!hostToken) return undefined;
+
+    apiRequest("/host/auth/me", { token: hostToken })
+      .then((data) => {
+        if (!cancelled) setCurrentHost(withId(data.host));
+      })
+      .catch(() => {
+        if (!cancelled) persistHostToken(null);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hostToken]);
+
+  // Pull in whichever bookings the logged-in guest and/or host can see.
+  // Both GuestTrips ("my trips") and HostBookings ("bookings on my homes")
+  // read from this same merged list and filter it client-side.
+  const refreshBookings = useCallback(async () => {
+    const results = await Promise.all([
+      guestToken
+        ? apiRequest("/bookings/mine", { token: guestToken }).catch(() => [])
+        : Promise.resolve([]),
+      hostToken
+        ? apiRequest("/bookings/host/mine", { token: hostToken }).catch(() => [])
+        : Promise.resolve([]),
+    ]);
+
+    const merged = new Map();
+    withIds(results[0])
+      .concat(withIds(results[1]))
+      .forEach((booking) => merged.set(booking.id, booking));
+
+    setBookings(Array.from(merged.values()));
+  }, [guestToken, hostToken]);
+
+  useEffect(() => {
+    refreshBookings();
+  }, [refreshBookings]);
 
   // ------------------------------------------------------------------
-  // Every mutating function below is wrapped in simulateRequest() so it
-  // returns a Promise and can throw/reject like a real API call will.
-  // When the backend exists, swap the body inside simulateRequest for a
-  // `fetch(...)` call — call sites elsewhere in the app don't change.
+  // Homes (host-only writes)
   // ------------------------------------------------------------------
 
-  const addHome = useCallback((home) => {
-    return simulateRequest(() => {
-      setCreatedHomes((prev) => [home, ...prev]);
-      return home;
-    });
-  }, []);
-
-  const updateHome = useCallback((id, updates) => {
-    return simulateRequest(() => {
-      setCreatedHomes((prev) =>
-        prev.map((home) => (home.id === id ? { ...home, ...updates } : home))
+  const addHome = useCallback(
+    async (home) => {
+      const created = withId(
+        await apiRequest("/homes", { method: "POST", body: home, token: hostToken })
       );
-      return { id, ...updates };
-    });
-  }, []);
+      setHomes((prev) => [created, ...prev]);
+      return created;
+    },
+    [hostToken]
+  );
 
-  const deleteHome = useCallback((id) => {
-    return simulateRequest(() => {
-      setCreatedHomes((prev) => prev.filter((home) => home.id !== id));
-      return id;
-    });
-  }, []);
-
-  const addService = useCallback((service) => {
-    return simulateRequest(() => {
-      setCreatedServices((prev) => [service, ...prev]);
-      return service;
-    });
-  }, []);
-
-  const updateService = useCallback((id, updates) => {
-    return simulateRequest(() => {
-      setCreatedServices((prev) =>
-        prev.map((service) => (service.id === id ? { ...service, ...updates } : service))
+  const updateHome = useCallback(
+    async (id, updates) => {
+      const updated = withId(
+        await apiRequest(`/homes/${id}`, { method: "PUT", body: updates, token: hostToken })
       );
-      return { id, ...updates };
-    });
-  }, []);
+      setHomes((prev) => prev.map((home) => (home.id === id ? updated : home)));
+      return updated;
+    },
+    [hostToken]
+  );
 
-  const deleteService = useCallback((id) => {
-    return simulateRequest(() => {
-      setCreatedServices((prev) => prev.filter((service) => service.id !== id));
+  const deleteHome = useCallback(
+    async (id) => {
+      await apiRequest(`/homes/${id}`, { method: "DELETE", token: hostToken });
+      setHomes((prev) => prev.filter((home) => home.id !== id));
       return id;
-    });
+    },
+    [hostToken]
+  );
+
+  // ------------------------------------------------------------------
+  // Services (host-only writes)
+  // ------------------------------------------------------------------
+
+  const addService = useCallback(
+    async (service) => {
+      const created = withId(
+        await apiRequest("/services", { method: "POST", body: service, token: hostToken })
+      );
+      setServices((prev) => [created, ...prev]);
+      return created;
+    },
+    [hostToken]
+  );
+
+  const updateService = useCallback(
+    async (id, updates) => {
+      const updated = withId(
+        await apiRequest(`/services/${id}`, { method: "PUT", body: updates, token: hostToken })
+      );
+      setServices((prev) => prev.map((service) => (service.id === id ? updated : service)));
+      return updated;
+    },
+    [hostToken]
+  );
+
+  const deleteService = useCallback(
+    async (id) => {
+      await apiRequest(`/services/${id}`, { method: "DELETE", token: hostToken });
+      setServices((prev) => prev.filter((service) => service.id !== id));
+      return id;
+    },
+    [hostToken]
+  );
+
+  // ------------------------------------------------------------------
+  // Bookings (guest-only writes)
+  // ------------------------------------------------------------------
+
+  const addBooking = useCallback(
+    async (booking) => {
+      const created = withId(
+        await apiRequest("/bookings", {
+          method: "POST",
+          body: {
+            homeId: booking.homeId,
+            serviceId: booking.serviceId || null,
+            checkIn: booking.checkIn,
+            checkOut: booking.checkOut,
+            guests: booking.guests,
+            paymentMethod: booking.paymentMethod,
+            total: booking.total,
+          },
+          token: guestToken,
+        })
+      );
+      setBookings((prev) => [created, ...prev]);
+      return created;
+    },
+    [guestToken]
+  );
+
+  // ------------------------------------------------------------------
+  // Host auth
+  // ------------------------------------------------------------------
+
+  const signupHost = useCallback(async (hostData) => {
+    const data = await apiRequest("/host/auth/signup", { method: "POST", body: hostData });
+    persistHostToken(data.token);
+    setCurrentHost(withId(data.host));
+    return data.host;
   }, []);
 
-  const addBooking = useCallback((booking) => {
-    return simulateRequest(() => {
-      setBookings((prev) => [booking, ...prev]);
-      return booking;
+  const loginHost = useCallback(async ({ email, password }) => {
+    const data = await apiRequest("/host/auth/login", {
+      method: "POST",
+      body: { email, password },
     });
+    persistHostToken(data.token);
+    setCurrentHost(withId(data.host));
+    return data.host;
   }, []);
 
-  const loginHost = useCallback((host) => {
-    return simulateRequest(() => {
-      setCurrentHost(host);
-      return host;
-    });
-  }, []);
-
-  const logoutHost = useCallback(() => {
-    return simulateRequest(() => {
-      setCurrentHost(null);
-    });
+  const logoutHost = useCallback(async () => {
+    persistHostToken(null);
+    setCurrentHost(null);
   }, []);
 
   // Only homes/services created by the currently logged-in host, for the
   // "My Homes" / "My Services" / dashboard stats pages.
   const myHomes = useMemo(
-    () =>
-      currentHost ? createdHomes.filter((home) => home.hostId === currentHost.id) : [],
-    [createdHomes, currentHost]
+    () => (currentHost ? homes.filter((home) => home.hostId === currentHost.id) : []),
+    [homes, currentHost]
   );
 
   const myServices = useMemo(
-    () =>
-      currentHost
-        ? createdServices.filter((service) => service.hostId === currentHost.id)
-        : [],
-    [createdServices, currentHost]
+    () => (currentHost ? services.filter((service) => service.hostId === currentHost.id) : []),
+    [services, currentHost]
   );
 
   const value = {
@@ -157,9 +243,14 @@ export function AppProvider({ children }) {
     updateService,
     deleteService,
     addBooking,
+    signupHost,
     loginHost,
     logoutHost,
   };
+
+  // guestUser isn't read directly here, but keeps this provider re-rendering
+  // in step with login/logout so booking calls always use a fresh token.
+  void guestUser;
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }
