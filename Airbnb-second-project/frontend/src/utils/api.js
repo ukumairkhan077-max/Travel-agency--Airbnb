@@ -1,25 +1,47 @@
-// Central place for backend configuration. Until the backend exists, every
-// context function below still runs against localStorage — but it's already
-// shaped as an async call, so wiring the real API later means changing the
-// *inside* of these functions only, not every component that calls them.
+// Central place for backend configuration and the one function every
+// context uses to actually talk to the real Express/MongoDB backend.
 
 export const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
 
 /**
- * Wraps a synchronous local action (localStorage read/write, state update)
- * in a Promise so it can be `await`-ed and can `throw`/reject just like a
- * real fetch() call will. When the backend is ready, replace the body of
- * the function passed to this helper with an actual `fetch(...)` call —
- * every component calling it already awaits and handles errors correctly.
+ * Makes a real request to the backend and returns the parsed JSON body.
+ * Throws an Error (with the backend's `message`) on any non-2xx response,
+ * so every call site can keep using try/catch exactly like before.
+ *
+ * @param {string} path   e.g. "/auth/login" (appended to API_BASE_URL)
+ * @param {object} options
+ * @param {"GET"|"POST"|"PUT"|"DELETE"} [options.method="GET"]
+ * @param {object} [options.body]   JSON-serializable request body
+ * @param {string} [options.token]  Bearer token, if the route needs auth
  */
-export function simulateRequest(action) {
-  return new Promise((resolve, reject) => {
-    try {
-      const result = action();
-      resolve(result);
-    } catch (error) {
-      reject(error);
-    }
-  });
+export async function apiRequest(path, { method = "GET", body, token } = {}) {
+  const headers = { "Content-Type": "application/json" };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  let response;
+  try {
+    response = await fetch(`${API_BASE_URL}${path}`, {
+      method,
+      headers,
+      body: body !== undefined ? JSON.stringify(body) : undefined,
+    });
+  } catch {
+    throw new Error(
+      "Couldn't reach the server. Make sure the backend is running."
+    );
+  }
+
+  let data = null;
+  try {
+    data = await response.json();
+  } catch {
+    data = null;
+  }
+
+  if (!response.ok) {
+    throw new Error((data && data.message) || `Request failed (${response.status}).`);
+  }
+
+  return data;
 }
