@@ -26,10 +26,12 @@ const guestSchema = new mongoose.Schema(
 );
 
 // Hash the password before saving, only if it was changed/set.
-guestSchema.pre("save", async function hashPassword(next) {
-  if (!this.isModified("password")) return next();
+// NOTE: async pre-save hooks in modern Mongoose resolve on their own
+// promise — they do NOT receive a usable `next` callback. Declaring
+// `next` and calling it here throws "next is not a function".
+guestSchema.pre("save", async function hashPassword() {
+  if (!this.isModified("password")) return;
   this.password = await bcrypt.hash(this.password, 10);
-  next();
 });
 
 // Instance method used by the login controller to compare a plaintext
