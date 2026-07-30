@@ -3,7 +3,6 @@ import { useParams, useLocation, useNavigate, Link } from "react-router-dom";
 import { IoArrowBack } from "react-icons/io5";
 import { useApp } from "../../context/AppContext";
 import { useAuth } from "../../context/AuthContext";
-import { generateBookingId } from "../../utils/idGenerator";
 
 import RequiredForTrip from "../../components/ConfirmPay/RequiredForTrip";
 import PaymentMethod from "../../components/ConfirmPay/PaymentMethod";
@@ -158,23 +157,17 @@ function ConfirmPay() {
       // the actual charge takes.
       await new Promise((resolve) => setTimeout(resolve, 1200));
 
-      const bookingId = generateBookingId();
-
-      await addBooking({
-        id: bookingId,
-        guestId: guestUser.id,
+      const booking = await addBooking({
         homeId: listing.id,
-        homeTitle: listing.title,
-        serviceTitle: selectedService ? selectedService.title : null,
+        serviceId: selectedService ? selectedService.id : null,
         checkIn,
         checkOut,
         guests,
         paymentMethod,
         total: priceBreakdown.total,
-        createdAt: new Date().toISOString(),
       });
 
-      navigate(`/thank-you/${bookingId}`);
+      navigate(`/thank-you/${booking.id}`);
     } catch (error) {
       setPaymentError(
         error.message || "We couldn't process your payment. Please try again."

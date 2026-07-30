@@ -12,7 +12,7 @@ function BookingDetails() {
   const navigate = useNavigate();
   const { homes } = useApp();
 
-  const listing = homes.find((item) => item.id === Number(id));
+  const listing = homes.find((item) => String(item.id) === String(id));
 
   const passedState = location.state || {};
   const [checkIn, setCheckIn] = useState(passedState.checkIn || "");

@@ -16,16 +16,19 @@ import "./styles/ServiceCard.css";
 import "./styles/ServicePage.css";
 import "./styles/ServiceDetail.css";
 
+// AuthProvider must wrap AppProvider: AppProvider calls useAuth() internally
+// (it needs the logged-in guest's token to create/fetch bookings), so the
+// AuthContext has to exist further up the tree.
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <AppProvider>
-        <AuthProvider>
+      <AuthProvider>
+        <AppProvider>
           <WishlistProvider>
             <App />
           </WishlistProvider>
-        </AuthProvider>
-      </AppProvider>
+        </AppProvider>
+      </AuthProvider>
     </BrowserRouter>
   </StrictMode>
 );

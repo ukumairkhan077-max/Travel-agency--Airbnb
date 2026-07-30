@@ -11,7 +11,7 @@ function Listingdetail() {
     const { homes } = useApp();
 
     const listing = homes.find(
-        (item) => item.id === Number(id)
+        (item) => String(item.id) === String(id)
     );
 
     const [checkIn, setCheckIn] = useState("");

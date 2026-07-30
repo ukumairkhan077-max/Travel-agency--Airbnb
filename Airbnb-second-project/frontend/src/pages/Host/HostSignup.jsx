@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import { useApp } from "../../context/AppContext";
-import { generateHostId } from "../../utils/idGenerator";
 import {
   isValidEmail,
   isValidPhone,
@@ -23,7 +22,7 @@ const INITIAL_FORM = {
 
 function HostSignup() {
   const navigate = useNavigate();
-  const { loginHost } = useApp();
+  const { signupHost } = useApp();
 
   const [form, setForm] = useState(INITIAL_FORM);
   const [agreed, setAgreed] = useState(false);
@@ -64,21 +63,20 @@ function HostSignup() {
     if (!validate()) return;
 
     const host = {
-      id: generateHostId(),
       fullName: form.fullName.trim(),
       email: form.email.trim(),
+      password: form.password,
       phone: form.phone.trim(),
       cnic: form.cnic.trim(),
       city: form.city.trim(),
       address: form.address.trim(),
-      createdAt: new Date().toISOString(),
     };
 
     setSubmitError("");
     setIsSubmitting(true);
 
     try {
-      await loginHost(host);
+      await signupHost(host);
       navigate("/host/dashboard");
     } catch (err) {
       setSubmitError(err.message || "Couldn't create your host account. Please try again.");

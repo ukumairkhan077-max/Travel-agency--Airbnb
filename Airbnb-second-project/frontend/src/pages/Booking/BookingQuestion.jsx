@@ -49,7 +49,7 @@ function BookingQuestion() {
     navigate("/services", {
       state: {
         bookingMode: true,
-        homeId: Number(id),
+        homeId: id,
         checkIn,
         checkOut,
         guests,
